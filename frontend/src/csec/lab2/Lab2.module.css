@@ -1,0 +1,20 @@
+.page {
+    padding: 16px;
+    min-height: calc(100vh - 32px);
+
+    justify-content: center;
+    margin: auto;
+    background: #F9FAFB;;
+}
+
+.form {
+    max-width: 1368px;
+
+    width: 100%;
+}
+
+.form > label{
+    display: flex;
+    flex-direction: column;
+}
+

@@ -1,0 +1,7 @@
+db.createUser({
+    user: "contest",
+    pwd: "123",
+    roles: [
+        {role: "dbAdmin", db: "contest_user"}
+    ]
+})

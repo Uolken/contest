@@ -1,0 +1,63 @@
+.selectedDayActions {
+    width: 336px;
+    height: 380px;
+    padding: 16px;
+}
+
+.actionsHeader {
+    text-transform: capitalize;
+    /*text-align: center;*/
+    height: 24px;
+    /*font-size: 14px;*/
+    /*line-height: 16px;*/
+    padding-bottom: 24px;
+}
+
+.noActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+    gap: 8px;
+}
+
+.actionsList {
+    height: calc(100% - 16px - 16px - 24px);
+    overflow-y: auto;
+}
+.action {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.action:hover {
+    background: rgba(183, 183, 183, 0.1);
+}
+
+.actionIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #E0F2FE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.actionIcon * {
+    fill: #0EA5E9;
+}
+
+.actionDescription {
+    height: 48px;
+}
+
+.actionTime {
+
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    line-height: 21px;
+}

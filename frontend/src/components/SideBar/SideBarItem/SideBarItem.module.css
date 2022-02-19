@@ -1,0 +1,57 @@
+
+.sideBarElement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+
+    margin-right: 0;
+    padding: 8px;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 8px;
+    width: 238px;
+
+    transition: 0.3s;
+
+
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.sideBarElement.closed {
+    width: 24px;
+}
+
+.sideBarElement.closed .name {
+}
+
+.sideBarElement > .icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sideBarElement > .name {
+    padding-left: 16px;
+    flex-shrink: 0;
+}
+
+.selectedElement * {
+    transition: 0.2s;
+}
+
+.selectedElement {
+    background: #E0F2FE;
+}
+
+.selectedElement > .icon > .test * {
+    fill: #0EA5E9;
+}
+
+.selectedElement > .name {
+    color: #0284C7;
+}

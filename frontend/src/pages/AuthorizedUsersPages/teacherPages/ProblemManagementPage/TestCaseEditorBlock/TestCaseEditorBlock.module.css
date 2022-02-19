@@ -1,0 +1,141 @@
+.testCasesEditorBlock {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #A1A1AA;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-top: 16px;
+    margin-bottom: 220px;
+
+}
+
+.testCasesEditorBlock > * {
+    padding: 24px;
+}
+
+.testCasesEditorBlock > *:not(:last-child) {
+    border-bottom: 1px solid #A1A1AA;
+}
+
+.closedRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rowHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.closedRow > * {
+    width: 30%;
+}
+.outputsTitle {
+    padding: 16px 16px  0 16px ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.testCaseTitle {
+    color: #71717A;
+}
+.inputTextarea {
+    padding: 0 16px;
+    width: calc(100% - 32px);
+    border: 0;
+    resize: none;
+    background: inherit;
+    font-family: Inter;
+    line-height: 28px;
+    outline: none;
+    font-size: 16px;
+}
+.icon {
+    width: 20px;
+    display: flex;
+    align-items: center
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid #A1A1AA;
+    color: #52525B;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 5px 12px;
+    background: white;
+    cursor: pointer;
+
+    margin-right: 20px;
+}
+
+.testCaseEditorBlock {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.testCase {
+    width: 100%;
+}
+
+.inputAndOutput {
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    display: flex;
+}
+
+.input {
+    padding: 16px;
+    width: 50%;
+}
+
+.outputs {
+    width: 50%;
+    background: #F4F4F5;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.output {
+    padding: 0 16px;
+    width: calc(100% - 32px);
+    border: 0;
+    resize: none;
+    background: inherit;
+    font-family: Inter;
+    line-height: 28px;
+    outline: none;
+    font-size: 16px;
+}
+
+.output:not(:last-child) {
+    border-bottom: 1px solid #CECECE;
+}
+.output:last-child {
+    border-radius: 0 0 4px 0;
+    padding-bottom: 16px;
+}
+
+.placeholder {
+    color: #71717A;
+}
+
+.deleteTestCaseButton {
+    /*padding: 16px;*/
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #A1A1AA;
+    padding-top: 4px;
+    background: white;
+    cursor: pointer;
+}

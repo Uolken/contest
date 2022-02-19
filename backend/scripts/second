@@ -1,0 +1,47 @@
+# Firejail profile for ./a.out
+# Persistent local customizations
+#include ./a.out.local
+# Persistent global definitions
+#include globals.local
+
+### basic blacklisting
+include disable-common.inc
+# include disable-devel.inc
+# include disable-exec.inc
+# include disable-interpreters.inc
+include disable-passwdmgr.inc
+# include disable-programs.inc
+# include disable-xdg.inc
+
+### home directory whitelisting
+private
+
+### filesystem
+# /usr/share:
+blacklist /usr/share
+# /var:
+blacklist /var
+
+# $PATH:
+# /dev:
+private-dev
+# /etc:
+private-etc none
+# /tmp:
+private-tmp
+
+### security filters
+caps.drop all
+nonewprivs
+seccomp
+# seccomp.keep write,read,newfstatat,mprotect,openat,close,munmap,brk,readlink,lseek,access,getpid,mmap,pread64,execve,arch_prctl
+# 16 syscalls total
+# Probably you will need to add more syscalls to seccomp.keep. Look for
+# seccomp errors in /var/log/syslog or /var/log/audit/audit.log while
+# running your sandbox.
+
+### network
+net none
+
+### environment
+shell none

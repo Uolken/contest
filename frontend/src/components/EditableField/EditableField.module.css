@@ -1,0 +1,31 @@
+.editableField {
+    display: flex;
+    gap: 16px;
+    height: 28px;
+}
+
+.value > * {
+    background: inherit;
+    border: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.editableField input {
+    outline: none;
+    resize: none;
+    width: 100%;
+    padding: 0;
+}
+
+.value > div {
+    padding-top: 1px;
+    padding-right: 10px;
+}
+
+.placeholder {
+    color: #71717A;
+}

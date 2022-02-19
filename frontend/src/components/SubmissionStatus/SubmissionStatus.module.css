@@ -1,0 +1,10 @@
+.statusBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.statusBlock svg{
+    /*padding-top: 8px;*/
+    padding-right: 8px;
+}

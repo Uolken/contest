@@ -1,0 +1,13 @@
+.tagList {
+    display: flex;
+    align-items: center;
+}
+
+.tag * {
+    margin-left: 5px;
+    color: #71717A;
+}
+
+.tag:hover {
+    text-decoration: underline;
+}

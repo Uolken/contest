@@ -1,0 +1,29 @@
+.loginPage {
+    height:100vh;
+    width: 100%;
+    display: inline-grid;
+    background: #F9FAFB;
+    grid-template-columns: 40% 60%;
+}
+
+.leftColumn {
+    background: white;
+    border: 1px solid #CECECE;
+
+}
+
+.rightColumn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoWrapper {
+    height: 320px;
+}
+
+.logo {
+    display: block;
+    width: 267px;
+}
+

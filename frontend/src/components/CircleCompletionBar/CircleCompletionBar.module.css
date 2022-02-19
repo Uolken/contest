@@ -1,0 +1,9 @@
+.bigIcon > * {
+    width: 40px;
+    height: 40px;
+}
+
+.defaultIcon > * {
+    width: 16px;
+    height: 16px;
+}

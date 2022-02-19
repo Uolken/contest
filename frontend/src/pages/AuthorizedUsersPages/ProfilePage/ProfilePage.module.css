@@ -1,0 +1,10 @@
+.profilePage {
+    height: 100vh;
+}
+.main {
+    margin-left: 72px;
+    /*height: 100%;*/
+    width: calc(100% - 72px);
+    background: #F9FAFB;
+    /*width: 200px;*/
+}

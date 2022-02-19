@@ -1,0 +1,115 @@
+.tableBlock {
+    border: 1px solid #CECECE;
+
+    border-radius: 4px;
+}
+
+.tableBlock > *:first-child > *:first-child > *:first-child > *:first-child {
+    border-radius: 4px 0 0 0;
+}
+
+.tableBlock > *:first-child > *:first-child > *:first-child > *:last-child {
+    border-radius: 0 4px 0 0;
+}
+
+.headerCell:last-child {
+    border-radius: 0 4px 0 0;
+    /*border: 1px solid red;*/
+}
+
+.headerCell:first-child {
+    border-radius: 4px 0 0 0;
+    /*border: 1px solid red;*/
+
+}
+
+.tableBlock > *:last-child {
+    border-radius: 0 0 4px 4px;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+.row.header {
+    color: #000;
+    background: #f2f2f2;
+    padding: 16px;
+}
+
+.headerCell {
+    padding: 10px 0;
+}
+
+.headerCell {
+    padding-left: 40px;
+}
+
+.headerCell > div {
+    display: flex;
+    gap: 10px
+    /*display: inline-flex;*/
+}
+
+.table {
+    width: 100%;
+    margin: 0;
+}
+
+.table, .row {
+    border-spacing: 0;
+    width: 100%
+}
+
+.row {
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    /*-ms-flex-wrap: wrap;*/
+    /*flex-wrap: wrap;*/
+    /*margin-right: -15px;*/
+    /*margin-left: -15px;*/
+}
+
+.row {
+    /*display: table-row;*/
+    background: #fff;
+
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable.row:hover > .cell {
+    background: #F9FAFB;
+}
+
+
+.row .cell {
+    width: 360px;
+    padding-left: 40px;
+}
+
+.row .cell {
+    font-size: 15px;
+    line-height: 1.2;
+    /*font-weight: unset !important;*/
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.emptyRow .cell {
+    border-bottom: 1px solid #f2f2f2
+}
+
+.emptyRow {
+    height: 59px;
+    width: 100%;
+    background: white;
+    cursor: default;
+
+}

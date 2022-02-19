@@ -1,0 +1,52 @@
+.calendar {
+    background: white;
+    width: 336px;
+    padding: 16px;
+    border-radius: 4px 4px 0 0;
+    border-bottom:  1px solid #CECECE;
+}
+.calendar table {
+    border-spacing: 0;
+    padding: 0;
+}
+
+.calendarWrapper {
+    width: 368px;
+    height: 380px;
+}
+
+.monthSelector {
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: auto;
+}
+
+.monthSwitch {
+    cursor: pointer;
+}
+
+.monthsRow {
+    height: 24px;
+    color: rgba(0, 0, 0, 0.6);
+
+    letter-spacing: 0.4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+
+    margin-bottom: 8px;
+}
+
+.dayBlock {
+    padding: 0;
+    height: 48px;
+    width: 48px;
+}
+
+.dayOfWeek {
+    text-align: center;
+}

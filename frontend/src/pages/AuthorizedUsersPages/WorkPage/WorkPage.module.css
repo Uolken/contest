@@ -1,0 +1,11 @@
+.workTitle {
+  margin: 0;
+}
+
+.workCompletionBlock {
+  display: flex;
+}
+
+.workCompletionBlockText {
+  margin: 12px;
+}

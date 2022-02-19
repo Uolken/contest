@@ -1,0 +1,49 @@
+server:
+  port: 8082
+jwt:
+  expiration: 15m
+  secret: ${JWT_SECRET}
+spring:
+  data:
+    mongodb:
+#      authentication-database: contest_user
+      host: ${MONGO_HOST:localhost}
+      port: 27017
+      username: root
+      password: example
+      database: contest_submission
+  application:
+    name: solution-service
+#  r2dbc:
+#    name: ${SOLUTION_DB_NAME:contest_submission}
+#    password: contest
+#    username: contest
+#    url: r2dbc:postgresql://${SOLUTION_DB_HOST:localhost}:${SOLUTION_DB_PORT:25432}
+#  liquibase:
+#    url: jdbc:postgresql://${SOLUTION_DB_HOST:localhost}:${SOLUTION_DB_PORT:25432}/${SOLUTION_DB_NAME:contest_submission}
+#    change-log: db/changelog/db.changelog-master.yaml
+#    user: contest
+#    password: contest
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      direct:
+        prefetch: 1
+
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://${SOLUTION_DB_HOST:localhost}:${SOLUTION_DB_PORT:25432}/${SOLUTION_DB_NAME:contest_submission}
+#    username: contest
+#    password: contest
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5
+logging:
+  level:
+    root: trace

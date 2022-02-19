@@ -1,0 +1,130 @@
+
+.contentEditor {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #A1A1AA;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.textEditor {
+    padding: 24px;
+}
+
+.contentEditor > *:not(:last-child) {
+    border-bottom: 1px solid #A1A1AA;
+}
+
+.textModificationsList {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+.modifiers {
+    padding: 16px;
+}
+
+.examplesEditor {
+    padding: 24px;
+}
+
+.textModification {
+    height: 24px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.active {
+    background: #E0F2FE;
+}
+.active > * > * {
+    fill: #0EA5E9;
+}
+
+.exampleEditorBlock {
+    display: flex;
+    gap: 8px;
+}
+.example {
+    width: 100%;
+}
+
+.inputAndOutput {
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    display: flex;
+}
+
+.inputAndOutput > * {
+    padding: 16px;
+}
+
+.input {
+    width: 50%;
+}
+
+.output {
+
+    border-radius: 0 4px 4px 0;
+    width: 50%;
+    background: #F4F4F5;
+}
+
+.comment {
+    margin: 16px 0 16px;
+}
+
+.exampleTitle {
+    color: #71717A
+}
+
+.placeholder {
+    color: #71717A;
+}
+
+.deleteExampleButton {
+    /*padding: 16px;*/
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #A1A1AA;
+    padding-top: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.problemName {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 16px 0 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.problemName input {
+    background: inherit;
+    border: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    height: 28px;
+    line-height: 28px;
+    outline: none;
+    resize: none;
+    padding: 0;
+    width: 100%;
+    border-right: 1px;
+    padding-right: 10px;
+}
+
+
+.editButton {
+    height: 14px;
+    width: 14px;
+    padding: 3px;
+    font-size: 0;
+}

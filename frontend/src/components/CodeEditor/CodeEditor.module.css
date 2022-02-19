@@ -1,0 +1,13 @@
+.codeEditorBlock {
+    border-radius: 4px;
+    border: 1px solid #CECECE;
+    padding: 8px;
+    background: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 16px;
+
+}

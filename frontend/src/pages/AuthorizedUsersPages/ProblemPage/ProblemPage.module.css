@@ -1,0 +1,37 @@
+
+
+.problemContent {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100%;
+}
+
+.problemText {
+    background: white;
+    border: 1px solid #CECECE;
+    border-radius: 8px;
+}
+
+.problemText > * {
+    padding: 16px;
+}
+
+.samples {
+    border-top: 1px solid #CECECE;
+}
+
+.problemAdditionalInfo {
+    padding: 16px 0 16px 16px;
+}
+.problemAdditionalInfo > * {
+    margin-bottom: 16px;
+}
+
+.codeEditorBlock {
+    margin-top: 16px;
+    max-width: 921px;
+}
+
+.codeEditorBlock * {
+    line-height: 19px;
+}

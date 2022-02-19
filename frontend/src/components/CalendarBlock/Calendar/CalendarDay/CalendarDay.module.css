@@ -1,0 +1,57 @@
+.day {
+    /*height: 100%;*/
+    height: calc(100% - 4px);
+    /*width: 100%;*/
+    cursor: pointer;
+    width: calc(100% - 4px);
+    margin: 2px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.dayDate {
+    display: inline-block;
+}
+
+.currentMonth:hover:not(.selected) {
+    background: #edeef1;
+    transition: 0.1s;
+}
+
+
+.selected {
+    color: white;
+    background: #0EA5E9;
+    transition: 0.1s;
+}
+
+.currentDay:not(.selected) {
+    background: #E0F2FE;
+}
+
+.otherMonth {
+    color: #B7B7B7;
+    cursor: default;
+}
+
+.hasAction {
+    position: relative;
+}
+
+.hasAction::after {
+    position: absolute;
+    content: "•";
+    font-size: 25px;
+    bottom: -4px;
+}
+
+.currentMonth.hasAction::after {
+    color: #0EA5E9;
+}
+
+.selected.hasAction::after {
+    color: white;
+}

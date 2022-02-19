@@ -1,0 +1,22 @@
+.problemCard {
+  background: white;
+
+  border: 1px solid #CECECE;
+  border-radius: 4px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px;
+}
+
+.cardContent {
+  padding: 16px;
+  border-top: 1px solid #CECECE;
+}
+
+.cardBottom {
+  padding: 16px;
+  border-top: 1px solid #CECECE;
+}

@@ -1,0 +1,36 @@
+.card {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 32px);
+}
+
+.main {
+    margin-left: 8px;
+    margin-top: 10px;
+    display: flex;
+}
+
+.icon {
+    height: 48px;
+    width: 48px;
+}
+
+.content {
+    padding-left: 20px;
+}
+
+.name {
+    color: #71717A;
+}
+
+.value {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.bottomLink {
+    text-align: right;
+}

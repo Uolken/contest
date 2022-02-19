@@ -1,0 +1,11 @@
+
+.problemPageWrapper {
+    display: grid;
+}
+
+.header {
+}
+
+.breadCrumbs {
+    display: flex;
+}

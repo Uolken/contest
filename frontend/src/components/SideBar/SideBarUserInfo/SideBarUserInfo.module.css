@@ -1,0 +1,42 @@
+.userShortInfo {
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    justify-content: space-between;
+    width: 239px;
+
+
+    overflow: hidden;
+    opacity: 1;
+    /*border: 1px solid #CECECE;*/
+}
+
+.userShortInfo.closed {
+    width: 40px;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.userShortInfo.closed .fullNameAndGroup {
+    /*opacity: 0;*/
+    overflow: hidden;
+
+}
+
+.userShortInfo.closed .notification {
+    overflow: hidden;
+    /*opacity: 0;*/
+}
+
+.fullNameAndGroup {
+    flex-shrink: 0;
+    flex-grow: 1;
+    display: flex;
+    padding-left: 8px;
+    flex-direction: column;
+}

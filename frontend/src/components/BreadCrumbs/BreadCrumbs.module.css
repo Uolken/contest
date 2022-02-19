@@ -1,0 +1,14 @@
+.breadCrumbs {
+    display: flex;
+
+    color: #71717A;
+}
+
+.slash {
+    display: inline;
+    margin: 16px;
+}
+
+.crumb {
+    color: #71717A;
+}

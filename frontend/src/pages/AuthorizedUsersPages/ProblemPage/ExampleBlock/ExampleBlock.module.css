@@ -1,0 +1,29 @@
+
+.inputAndOutput {
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    display: flex;
+}
+
+.inputAndOutput > * {
+    padding: 16px;
+}
+
+.input {
+    width: 50%;
+}
+
+.output {
+
+    border-radius: 0 4px 4px 0;
+    width: 50%;
+    background: #F4F4F5;
+}
+
+.comment {
+    margin: 16px 0 16px;
+}
+
+.exampleTitle {
+    color: #71717A
+}

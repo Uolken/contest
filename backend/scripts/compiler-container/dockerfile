@@ -1,0 +1,3 @@
+FROM gcc
+
+cmd ["gcc", "-o","/compile/compiled-code.out", "/compile/input.c"]

@@ -1,0 +1,3 @@
+FROM gcc
+
+cmd ["/compiled-code.out"]

@@ -1,0 +1,50 @@
+.sideBar {
+    width: fit-content;
+    height: 100%;
+    border-right: 1px solid #CECECE;
+    position: fixed;
+    background: white;
+    z-index: 1000;
+}
+
+.sideBarGroup {
+    padding: 16px;
+}
+
+.sideBarGroup + .sideBarGroup {
+    border-top: 1px solid #CECECE;
+}
+
+.avatarAndName {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.fullNameAndGroup {
+    display: flex;
+    padding-left: 5px;
+    flex-direction: column;
+}
+
+.group {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.sideBarElementsList {
+    padding: 0;
+    margin: 0;
+}
+
+
+.sideBarElementsList > li {
+    list-style-type: none;
+    height: 40px;
+}
+
+.sideBarElementsList > li + li {
+    margin-top: 8px;
+}
+
+
+

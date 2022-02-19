@@ -1,0 +1,46 @@
+.errorPopupBackground {
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 20%;
+    position: absolute;
+    display: flex;
+
+    justify-content: space-around;
+    align-items: center;
+
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header > h2 {
+    margin: 0;
+}
+
+.errorPopup {
+    background-color: white;
+    padding: 16px;
+    border: 1px solid #CECECE;
+    border-radius: 8px;
+    color: black;
+    position: absolute;
+    z-index: 10000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -150%);
+}
+
+
+.errorMessage {
+    padding-top: 16px;
+}
+.notShow {
+    display: none;
+}

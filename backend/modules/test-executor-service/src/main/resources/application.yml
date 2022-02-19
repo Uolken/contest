@@ -1,0 +1,29 @@
+server:
+  port: 8083
+
+spring:
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      direct:
+        prefetch: 1
+
+rabbitmq:
+  queue: q
+  exchange: e
+  routingkey: r
+
+
+jwt:
+  expiration: 15m
+  secret: ${JWT_SERCRET}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5

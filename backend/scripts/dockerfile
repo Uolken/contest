@@ -1,0 +1,5 @@
+FROM gcc
+COPY entrypoint.sh entrypoint.sh
+COPY a.out a.out
+
+cmd ["./a.out"]
