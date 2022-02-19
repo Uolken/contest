@@ -30,6 +30,7 @@ interface ProblemService {
 @Service
 class ProblemServiceImpl(
     private val problemRepository: ProblemRepository,
+    private val tagService: TagService,
     private val objectMapper: ObjectMapper,
     private val databaseClient: DatabaseClient,
 ) : ProblemService {
@@ -52,6 +53,9 @@ class ProblemServiceImpl(
                         inLibrary = newProblem.inLibrary
                     )
                 )
+            }.map { problem ->
+                tagService.setProblemTags(problem.id, newProblem.tags)
+                problem
             }
     }
 

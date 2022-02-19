@@ -7,5 +7,6 @@ data class ProblemUpdateDto(
     val name: String,
     val text: String,
     val examples: List<Example>,
-    val inLibrary: Boolean
+    val inLibrary: Boolean,
+    val tags: List<TagDto>
 )

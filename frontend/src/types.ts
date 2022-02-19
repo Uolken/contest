@@ -211,6 +211,7 @@ export type ProblemUpdateDtoInput = {
   id: Scalars['Long'];
   inLibrary: Scalars['Boolean'];
   name: Scalars['String'];
+  tags: Array<TagDtoInput>;
   text: Scalars['String'];
 };
 
@@ -227,6 +228,7 @@ export type Query = {
   submissionCount: Scalars['Long'];
   submissionCountsByDates: Array<SubmissionCount>;
   submissions: Array<Submission>;
+  tags: Array<Tag>;
   user: User;
   userCount: Scalars['Long'];
   users: Array<User>;
@@ -429,6 +431,11 @@ export type SubscriptionProblemTestExecutionsArgs = {
 
 export type Tag = {
   __typename?: 'Tag';
+  id: Scalars['Long'];
+  name: Scalars['String'];
+};
+
+export type TagDtoInput = {
   id: Scalars['Long'];
   name: Scalars['String'];
 };

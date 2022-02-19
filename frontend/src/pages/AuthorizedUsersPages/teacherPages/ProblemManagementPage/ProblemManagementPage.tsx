@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import { observer } from "mobx-react-lite"
 import 'draft-js/dist/Draft.css'
 import styles from './ProblemManagementPage.module.css'
-import { Example } from "../../../../types"
+import { Example, Tag } from "../../../../types"
 import TextEditor from "./TextEditor"
 import { ContentState, Editor, EditorState, getDefaultKeyBinding } from "draft-js"
 import { ReactComponent as TrashIcon } from '../../../../images/icons/trash-icon.svg'
@@ -16,6 +16,10 @@ import TestCasesEditorBlock from "./TestCaseEditorBlock/TestCasesEditorBlock"
 import ErrorPopup from "../../../../components/ErrorPopup/ErrorPopup"
 import { useHistory } from "react-router-dom"
 import EditableField from "../../../../components/EditableField/EditableField"
+import ReactTags from 'react-tag-autocomplete'
+import AutocomplitableTags from "../../../../components/AutocmplitableTags/AutocomplitableTags"
+import graphQLApi from "../../../../api/graphQLApi"
+import { GROUPS, TAGS } from "../../../../api/queries"
 
 const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problemId: string }>) => {
   useEffect(() => {
@@ -52,6 +56,7 @@ const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problem
       </button>
     </div>
 
+
     <ContentEditorBlock/>
 
     <TestCasesEditorBlock/>
@@ -61,6 +66,14 @@ const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problem
         }}/>}
   </div>
 })
+
+const TagBlock = ({tags, onTagAdd, onTagRemove}: {tags: Array<Tag>, onTagAdd: (tag: Tag) => void, onTagRemove: (index: number) => void}) => {
+  const [suggestions, setSuggestions] = useState<Array<Tag>>()
+  useEffect(() => {
+    graphQLApi(TAGS,{}).then(r => setSuggestions(r.tags))
+  }, [])
+  return <AutocomplitableTags tags={tags} suggestions={suggestions || []} onTagAdd={onTagAdd} onTagRemove={onTagRemove}/>
+}
 
 const ContentEditorBlock = observer(() => {
   const examples = problemManagementPage.problemExamples
@@ -77,6 +90,10 @@ const ContentEditorBlock = observer(() => {
         <PlusIcon/>
         <div>Добавить пример</div>
       </button>
+    </div>
+    <div className={styles.tagsEditor}>
+      <h2>Теги</h2>
+      <TagBlock tags={problemManagementPage.tags || []} onTagAdd={t => problemManagementPage.addTag(t)} onTagRemove={problemManagementPage.removeTagByIndex}/>
     </div>
   </div>
 })

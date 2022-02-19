@@ -5,12 +5,14 @@ import { PROBLEM, SAVE_PROBLEM, SAVE_TEST_CASES } from "../../api/queries"
 import { EditorState } from "draft-js"
 import { stateFromHTML } from "draft-js-import-html"
 import { stateToHTML } from "draft-js-export-html"
+import { Tag } from "react-tag-autocomplete"
 
 class ProblemManagementPage {
   problemName: string | undefined
   problemText: string | undefined
   problemExamples: Array<Example> | undefined
   problemTestCases: Array<TestCase> | undefined
+  tags: Array<Tag> | undefined
 
   editorState: EditorState = EditorState.createEmpty()
 
@@ -33,6 +35,7 @@ class ProblemManagementPage {
     this.problemExamples = JSON.parse(JSON.stringify(problem?.examples || []))
     this.editorState = EditorState.createWithContent(stateFromHTML(problem?.text || ""))
     this.problemTestCases = problem?.testCases.sort((o1, o2) => o1.id - o2.id) || []
+    this.tags = problem?.tags || []
 
     this.problem = problem
   }
@@ -110,7 +113,13 @@ class ProblemManagementPage {
         name,
         text: stateToHTML(this.editorState.getCurrentContent()),
         examples: this.problemExamples!,
-        inLibrary: true
+        inLibrary: true,
+        tags: this.tags?.map(t => {
+          return {
+            id: t.id as number || 0,
+            name: t.name
+          }
+        }) || []
       }
     })
     .then(r => {
@@ -122,13 +131,22 @@ class ProblemManagementPage {
     return graphQLApi(SAVE_TEST_CASES, {
       problemId,
       testCases: this.problemTestCases!
-    }).then(r => problemId)
+    })
+    .then(r => problemId)
   }
 
-  error(text: string) : string{
+  error(text: string): string {
     this.errorMessage = text
     this.showError = true
     throw Error(text)
+  }
+
+  addTag(tag: Tag) {
+    this.tags?.push(tag)
+  }
+
+  removeTagByIndex(index: number) {
+    this.tags?.splice(index, 1)
   }
 }
 

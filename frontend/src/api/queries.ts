@@ -4,7 +4,7 @@ import {
   Problem,
   ProblemSelectorInput,
   ProblemSelectorWithPageInput,
-  ProblemUpdateDtoInput, Submission, SubmissionSelectorInput, SubmissionSelectorWithPageInput,
+  ProblemUpdateDtoInput, Submission, SubmissionSelectorInput, SubmissionSelectorWithPageInput, Tag,
   TestCase,
   TestCaseDtoInput, UpdateGroupRequestInput,
   User,
@@ -244,6 +244,10 @@ query problem($problemId: Long!) {
     id
     name
     text
+    tags {
+      id
+      name
+    }
     examples {
       input
       output 
@@ -445,6 +449,17 @@ export const SUBMISSION_COUNT: Query<{ selector: SubmissionSelectorInput }, { su
   query: `
 query submissionCount($selector: SubmissionSelectorInput!) {
   submissionCount(selector: $selector)
+}
+`
+}
+
+export const TAGS: Query<{}, { tags: Array<Tag> }> = {
+  query: `
+query {
+  tags {
+    id
+    name
+  }
 }
 `
 }

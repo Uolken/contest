@@ -26,6 +26,11 @@ class TagController(
         return tagService.getById(id).map { it.toDto() }
     }
 
+    @GetMapping("/tags")
+    fun getAll(): Flux<TagDto> {
+        return tagService.getAll().map { it.toDto() }
+    }
+
     @GetMapping("/tags/batched")
     fun getBatched(@RequestParam ids: List<Long>): Flux<TagDto> {
         return tagService.getByIds(ids).map { it.toDto() }
