@@ -18,5 +18,7 @@ interface UserRepository : ReactiveCrudRepository<User, Long> {
     fun setGroupIdNull(groupId: Long): Mono<Long>
     @Query("UPDATE users SET group_id = NULL WHERE group_id = :groupId AND id NOT IN (:excludeStudents)")
     fun setGroupIdNull(groupId: Long, excludeStudents: List<Long>): Mono<Long>
+    @Query("UPDATE users SET password = :encodedPassword WHERE email = :email")
+    fun setPassword(email: String, encodedPassword: String): Mono<Long>
 }
 

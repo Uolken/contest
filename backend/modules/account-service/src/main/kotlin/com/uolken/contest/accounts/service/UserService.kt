@@ -1,9 +1,11 @@
 package com.uolken.contest.accounts.service
 
+import com.uolken.contest.accounts.exception.WrongPasswordException
 import com.uolken.contest.accounts.model.Group
 import com.uolken.contest.accounts.model.User
 import com.uolken.contest.accounts.model.dto.filter.UserSelector
 import com.uolken.contest.accounts.model.dto.request.CreateUserRequest
+import com.uolken.contest.accounts.model.dto.request.ResetPasswordRequest
 import com.uolken.contest.accounts.repository.UserRepository
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -25,6 +27,7 @@ interface UserService {
     fun save(createUserRequest: CreateUserRequest): Mono<User>
     fun addStudentsToGroup(groupId: Long, studentIds: List<Long>): Mono<Long>
     fun removeStudentsFromGroup(groupId: Long, excludeStudentIds: List<Long>): Mono<Long>
+    fun resetPassword(email: String, resetPasswordRequest: ResetPasswordRequest): Mono<User>
 
 }
 
@@ -171,6 +174,15 @@ class UserServiceImpl(
     override fun removeStudentsFromGroup(groupId: Long, excludeStudentIds: List<Long>): Mono<Long> {
         return if (excludeStudentIds.isEmpty()) userRepository.setGroupIdNull(groupId)
         else userRepository.setGroupIdNull(groupId, excludeStudentIds)
+    }
+
+    override fun resetPassword(email: String, resetPasswordRequest: ResetPasswordRequest): Mono<User> {
+        return userRepository.findByEmail(email).doOnNext { user ->
+            if (!passwordEncoder.matches(resetPasswordRequest.password, user.encryptedPassword)) {
+                throw WrongPasswordException(user.email)
+            }
+            userRepository.setPassword(email, passwordEncoder.encode(resetPasswordRequest.newPassword)).subscribe()
+        }
     }
 
     companion object {

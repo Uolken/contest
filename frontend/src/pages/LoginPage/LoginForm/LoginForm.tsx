@@ -1,22 +1,37 @@
 import { observer } from 'mobx-react-lite'
 import { Link } from 'react-router-dom'
-import React from 'react'
+import React, { useState } from 'react'
 import loginForm from '../../../store/forms/loginForm'
 import styles from './LoginForm.module.css'
+import authService from "../../../api/services/authService"
+import sessionInfo from "../../../store/sessionInfo"
 
-const LoginForm = observer(() => (
-  <div className={styles.loginColumn}>
+const LoginForm = observer(() => {
+  const[email, setEmail] = useState("")
+  const[password, setPassword] = useState("")
+  const[errorMessage, setErrorMessage] = useState<string | undefined>()
+
+  const login = () => {
+    setErrorMessage(undefined)
+    authService.login(email, password)
+    .then((response) => sessionInfo.updateSessionInfo(response))
+    .catch((reason) => {
+      setErrorMessage("Неверный пароль")
+    })
+  }
+
+  return <div className={styles.loginColumn}>
     <div className={styles.loginForm}>
       <h1 className={styles.header}>Контест СГТУ</h1>
-      <form onSubmit={(e) => loginForm.submit(e)} className={styles.form}>
+      <div className={styles.form}>
         <label className={styles.field}>
           <div className={styles.labelText}>Логин</div>
           <input
             className={styles.input}
             type="text"
             name="login"
-            value={loginForm.email}
-            onChange={(l) => loginForm.changeLogin(l.target.value)}
+            value={email}
+            onChange={(l) => setEmail(l.target.value)}
           />
         </label>
         <label className={styles.field}>
@@ -25,17 +40,19 @@ const LoginForm = observer(() => (
             className={styles.input}
             type="text"
             name="password"
-            value={loginForm.password}
-            onChange={(p) => loginForm.changePassword(p.target.value)}
+            value={password}
+            onChange={(p) => setPassword(p.target.value)}
           />
         </label>
-        <div hidden={!loginForm.showError}>ошибка</div>
-        <input type="submit" className={styles.submitButton} value="Войти"/>
-      </form>
+        {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+        {/*<div hidden={!errorMessage}>ошибка</div>*/}
+        <input className={styles.submitButton} type={"button"} value="Войти" onClick={() => login()}/>
+      </div>
       <Link to="/registration">Регистрация</Link>
     </div>
 
   </div>
-))
+
+})
 
 export default LoginForm

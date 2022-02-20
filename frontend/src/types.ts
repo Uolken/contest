@@ -84,6 +84,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   refreshToken: SessionResponse;
   registration: SessionResponse;
+  resetPassword: User;
   saveGroupAssignments: Array<Scalars['Long']>;
   saveProblem: Problem;
   saveTestCases: Scalars['Long'];
@@ -113,6 +114,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegistrationArgs = {
   signUpRequest: SignUpRequestInput;
+};
+
+
+export type MutationResetPasswordArgs = {
+  resetPasswordRequest: ResetPasswordRequestInput;
 };
 
 
@@ -285,6 +291,7 @@ export type QuerySubmissionCountArgs = {
 export type QuerySubmissionCountsByDatesArgs = {
   end: Scalars['Date'];
   start: Scalars['Date'];
+  timezone: Scalars['String'];
   userId: Scalars['Long'];
 };
 
@@ -332,6 +339,11 @@ export type QueryWorkProblemArgs = {
 
 export type QueryWorksArgs = {
   workSelectorWithPage: WorkSelectorWithPageInput;
+};
+
+export type ResetPasswordRequestInput = {
+  newPassword: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type SessionResponse = {

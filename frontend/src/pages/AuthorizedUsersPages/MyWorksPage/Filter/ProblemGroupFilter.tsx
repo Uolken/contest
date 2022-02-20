@@ -6,7 +6,7 @@ import { useState } from "react"
 const options = [
   {name: "todo", title:"К выполнению", statuses: [AssignmentStatus.in_progress]},
   {name: "all", title:"Все", statuses: [AssignmentStatus.not_started, AssignmentStatus.in_progress, AssignmentStatus.closed, AssignmentStatus.all_problems_solved]},
-  {name: "planed", title:"Заплпнировано", statuses: [AssignmentStatus.not_started, AssignmentStatus.in_progress]},
+  {name: "planed", title:"Запланировано", statuses: [AssignmentStatus.not_started, AssignmentStatus.in_progress]},
 ]
 
 const ProblemGroupFilter = ({onChange}: {onChange: (s: Array<AssignmentStatus>) => void}) => {

@@ -67,3 +67,6 @@
 
     color: #FFFFFF;
 }
+.errorMessage {
+    color: red;
+}
