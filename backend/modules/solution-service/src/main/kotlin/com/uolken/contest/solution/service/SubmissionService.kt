@@ -22,6 +22,7 @@ import reactor.kotlin.core.publisher.toFlux
 import java.time.Clock
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 interface SubmissionService {
 
@@ -33,7 +34,7 @@ interface SubmissionService {
     fun getSubmissions(selector: SubmissionSelectorWithPage): Flux<Submission>
     fun getSubmissionCount(selector: SubmissionSelector): Mono<Long>
     fun getSubmission(submissionId: String): Mono<Submission>
-    fun getSubmissionCounts(start: LocalDate, end: LocalDate, userId: Long): Flux<SubmissionCount>
+    fun getSubmissionCounts(start: LocalDate, end: LocalDate, userId: Long, timezone: String): Flux<SubmissionCount>
 }
 
 @Service
@@ -142,8 +143,8 @@ class SubmissionServiceImpl(
         return submissionRepository.findById(submissionId)
     }
 
-    override fun getSubmissionCounts(start: LocalDate, end: LocalDate, userId: Long): Flux<SubmissionCount> {
-        return submissionRepository.countsByDates(start, end, userId)
+    override fun getSubmissionCounts(start: LocalDate, end: LocalDate, userId: Long, timezone: String): Flux<SubmissionCount> {
+        return submissionRepository.countsByDates(start, end.plusDays(1), userId, timezone)
     }
 
     private fun getSortFieldOrDefault(sortField: String): String {

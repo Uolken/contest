@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.TimeZone
 
 @Repository
 interface SubmissionRepository : ReactiveMongoRepository<Submission, String> {
@@ -64,11 +65,11 @@ interface SubmissionRepository : ReactiveMongoRepository<Submission, String> {
     @Aggregation(
         pipeline = [
             "{\$match: {submitted: {\$gte: ?0, \$lte: ?1}, submitterId: ?2} }",
-            "{\$group: {_id: {\$dateToString: { format: \"%Y-%m-%d\", date: \"\$submitted\"}}, count: {\$sum: 1}}}",
+            "{\$group: {_id: {\$dateToString: { format: \"%Y-%m-%d\", date: \"\$submitted\", timezone: ?3}}, count: {\$sum: 1}}}",
             "{\$project: {_id: false, date: \"\$_id\", count: true}}"
         ]
     )
-    fun countsByDates(start: LocalDate, end: LocalDate, userId: Long): Flux<SubmissionCount>
+    fun countsByDates(start: LocalDate, end: LocalDate, userId: Long, timezone: String): Flux<SubmissionCount>
 }
 
 data class SolutionAggregatedInfo(

@@ -30,11 +30,20 @@ class SubmissionQuery(
         return webClient.redirectToPost("http://solution-service/submissions/count", context, selector)
     }
 
-    fun submissionCountsByDates(start: LocalDate, end: LocalDate, userId: Long, context: RedirectableGraphQLContext): CompletableFuture<List<SubmissionCount>> {
-        return webClient.redirectToGet("http://solution-service/submissions/counts-by-dates", context, mapOf(
-            "start" to start,
-            "end" to end,
-            "userId" to userId
-        ))
+    fun submissionCountsByDates(
+        start: LocalDate,
+        end: LocalDate,
+        userId: Long,
+        timezone: String,
+        context: RedirectableGraphQLContext
+    ): CompletableFuture<List<SubmissionCount>> {
+        return webClient.redirectToGet(
+            "http://solution-service/submissions/counts-by-dates", context, mapOf(
+                "start" to start,
+                "end" to end,
+                "userId" to userId,
+                "timezone" to timezone,
+            )
+        )
     }
 }

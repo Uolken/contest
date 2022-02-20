@@ -54,10 +54,10 @@ query userWithAssignments($userId: Long!) {
 `
 }
 
-const submissionCountQuery: Query<{ userId: number, start: string, end: string }, { counts: Array<SubmissionCount> }> = {
+const submissionCountQuery: Query<{ userId: number, start: string, end: string, timezone: string }, { counts: Array<SubmissionCount> }> = {
   query: `
-query submissionCountsByDates($start: Date!,$end: Date!, $userId: Long!) {
-  counts: submissionCountsByDates(start: $start, end: $end, userId: $userId) {
+query submissionCountsByDates($start: Date!, $end: Date!, $userId: Long!, $timezone: String!) {
+  counts: submissionCountsByDates(start: $start, end: $end, userId: $userId, timezone: $timezone) {
     date
     count
   }
@@ -86,15 +86,19 @@ const CommonInfoPage = observer(() => {
     .then(r => setAssignments(r.user.group?.workAssignments))
   }, [])
 
-  const start = DateTime.now()
-  .startOf("day")
+  const end = DateTime.now()
+  .endOf("day")
+
+
+  const start = end
   .minus({ year: 1 })
 
   useEffect(() => {
     graphQLApi(submissionCountQuery, {
       userId: sessionInfo.userId!,
       start: start.toFormat("yyyy-MM-dd"),
-      end: end.toFormat("yyyy-MM-dd")
+      end: end.toFormat("yyyy-MM-dd"),
+      timezone: DateTime.now().zoneName
     })
     .then(r => {
       setSubmissionCount(r.counts)
@@ -107,8 +111,10 @@ const CommonInfoPage = observer(() => {
         submissionSelector: {
           submitterIds: [sessionInfo.userId],
           from: selectedSubmissionsDate.startOf("day")
+          .toUTC()
           .toISO(),
           to: selectedSubmissionsDate.endOf("day")
+          .toUTC()
           .toISO()
         },
         pageSelector: {
@@ -123,8 +129,6 @@ const CommonInfoPage = observer(() => {
       setSubmissions(r.submissions)
     })
   }, [selectedSubmissionsDate])
-  const end = DateTime.now()
-  .endOf("day")
 
   const worksTodo = assignments?.filter(a => !a.start || (+fromDateString(a.start)! < +DateTime.now()))
   ?.filter(a => !a.end || (+fromDateString(a.end)! > +DateTime.now()))
@@ -191,14 +195,6 @@ const SubmissionList = ({ submissions }: { submissions: Array<Submission> }) => 
       if (s.status == SubmissionStatus.ToTest) {
         icon = <ClockIcon/>
       }
-      console.log(s.submitted,)
-      console.log(DateTime.fromISO(s.submitted, { zone: "utc" })
-      .toLocaleString({
-        timeStyle: "short",
-        timeZone: "system"
-      }))
-      console.log(DateTime.fromISO(s.submitted)
-      .toLocaleString({ timeStyle: "short" }))
       return <div className={styles.submission} key={s.id}>
         <div>
           {icon}

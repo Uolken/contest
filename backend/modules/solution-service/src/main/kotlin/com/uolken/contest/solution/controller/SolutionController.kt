@@ -22,6 +22,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.TimeZone
 
 @RestController
 class SolutionController(
@@ -59,9 +60,10 @@ class SolutionController(
     fun getSubmissionCountsByDates(
         @RequestParam start: String,
         @RequestParam end: String,
-        @RequestParam userId: Long
+        @RequestParam userId: Long,
+        @RequestParam timezone: String,
     ): Flux<SubmissionCount> {
-        return submissionService.getSubmissionCounts(LocalDate.parse(start), LocalDate.parse(end), userId)
+        return submissionService.getSubmissionCounts(LocalDate.parse(start), LocalDate.parse(end), userId, timezone)
     }
 
     @PostMapping("/submissions/{submissionId}")
