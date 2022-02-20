@@ -11,7 +11,7 @@ const SideBarUserInfo = ({
 }: {
   avatar: string,
   fullName: string,
-  groupName: string,
+  groupName: string | undefined,
   hasNotification: boolean,
   isOpened: boolean
 }) => {
@@ -23,9 +23,9 @@ const SideBarUserInfo = ({
         <div className={styles.fullName}>{fullName}</div>
         <div className={styles.group}>{groupName}</div>
       </div>
-      <div className={styles.notification}>
-        <img src={notificationIcon} alt="notification icon" className={styles.notificationIcon} />
-      </div>
+      {/*<div className={styles.notification}>*/}
+      {/*  <img src={notificationIcon} alt="notification icon" className={styles.notificationIcon} />*/}
+      {/*</div>*/}
     </div>
   )
 }

@@ -38,7 +38,6 @@ export enum AssignmentStatus {
 
 export const assignmentStatus = (assignment: WorkGroupAssignment) => {
   const start = fromDateString(assignment.start)
-  console.log(assignment)
 
   if (start != null && +start > +DateTime.now()) {
     return AssignmentStatus.not_started
@@ -59,8 +58,6 @@ export const assignmentStatus = (assignment: WorkGroupAssignment) => {
 }
 
 export const fromDateString = (dateStr: string | undefined) => {
-  // console.log(dateStr)
-  // console.log(DateTime.fromISO(dateStr || "").toLocaleString(DateTime.TIME_24_SIMPLE))
   return dateStr ? DateTime.fromISO(dateStr) : undefined
 }
 

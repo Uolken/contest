@@ -4,13 +4,15 @@ import { observer } from 'mobx-react-lite'
 import sessionInfo from '../store/sessionInfo'
 import RouteWithPredicate from './RouteWithPredicate'
 
-const AuthorizedRoute = observer((props: RouteProps) => (
-  <RouteWithPredicate
+const AuthorizedRoute = observer((props: RouteProps) => {
+  sessionInfo.isAuthorized()
+  return <RouteWithPredicate
     predicate={() => sessionInfo.isAuthorized()}
     redirectTo="/auth"
-      /* eslint-disable-next-line react/jsx-props-no-spreading */
+    /* eslint-disable-next-line react/jsx-props-no-spreading */
     {...props}
   />
-))
+
+})
 
 export default AuthorizedRoute

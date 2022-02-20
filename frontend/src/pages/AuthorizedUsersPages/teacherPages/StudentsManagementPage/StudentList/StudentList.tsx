@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite"
 import studentsManagementPage from "../../../../../store/studentsManagementPage"
 import { useEffect } from "react"
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 10
 
 const columns: Array<Column<User>> = [
   {
@@ -73,11 +73,16 @@ const StudentList = observer(() => {
   const studentCount = studentsManagementPage.studentCount
   const pageCount = studentCount ? Math.ceil(studentCount / PAGE_SIZE) : undefined
   return <div>
-    Поиск:
-    <input type="text" value={nameOrEmail ? nameOrEmail : ""}
-           onChange={n => {
-             setNameOrEmail(n.target.value)
-           }}/>
+    <div style={{paddingBottom: 16}}>
+
+      <label>
+        <span style={{paddingRight: 12}}>Поиск:</span>
+        <input type="text" value={nameOrEmail ? nameOrEmail : ""}
+               onChange={n => {
+                 setNameOrEmail(n.target.value)
+               }}/>
+      </label>
+    </div>
     <DynamicTable columns={columns} linkExtractor={s => `/teaching/students/${s.id}`}
                   keyExtractor={s => s.id}
                   pageCount={pageCount}

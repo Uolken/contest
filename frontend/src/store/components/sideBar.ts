@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { ReactComponent as CommonIcon } from '../../images/icons/common-icon.svg'
 import { ReactComponent as TasksIcon } from '../../images/icons/tasks-icon.svg'
+import { ReactComponent as LogoutIcon } from '../../images/icons/logout.svg'
 import { ReactComponent as TaskIcon } from '../../images/icons/task-icon.svg'
 import { ReactComponent as CheckMarkIcon } from '../../images/icons/exam-icon.svg'
 import { ReactComponent as ContestIcon } from '../../images/icons/contest-icon.svg'
@@ -9,6 +10,7 @@ import { ReactComponent as CalendarIcon } from '../../images/icons/calendar-icon
 import { ReactComponent as SettingsIcon } from '../../images/icons/settings-icon.svg'
 import { ReactComponent as GroupIcon } from '../../images/icons/group.svg'
 import { ReactComponent as StudentIcon } from '../../images/icons/student.svg'
+import sessionInfo from "../sessionInfo"
 
 class SideBar {
   isHovered = false
@@ -75,6 +77,17 @@ class SideBar {
       page: '/settings',
       Icon: SettingsIcon,
     },
+  ]
+
+  bottomGroup = [
+    {
+      name: "Выйти",
+      action: () => {
+        // console.log("logout")
+        sessionInfo.logout()
+      },
+      Icon: LogoutIcon
+    }
   ]
 
   constructor() {
