@@ -6,14 +6,12 @@ import DynamicTable from "../../../../../components/DynamicTable/DynamicTable"
 import { Column } from "../../../../../components/GenericTable/GenericTable"
 import { observer } from "mobx-react-lite"
 import TagList from "../../../../../components/TagList/TagList"
-import studentsManagementPage from "../../../../../store/studentsManagementPage"
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 10
 
 const columns: Array<Column<Problem>> = [
   { name: "name", readableName: "Название", sortable: true, content: p => p.name },
   { name: "tags", readableName: "Теги", sortable: false, content: p => <TagList tags={p.tags}/> },
-
 ]
 
 const ProblemList = observer(() => {
@@ -53,7 +51,6 @@ const ProblemList = observer(() => {
       setCurrentPage(p.currentPage)
       setSortColumn(p.sortColumn)
       setSortDirIsDesc(p.sortDirIsDesc)
-
     }}/>
   </div>
 })

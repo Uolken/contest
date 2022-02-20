@@ -61,7 +61,7 @@
 
 .table, .row {
     border-spacing: 0;
-    width: 100%
+    width: 100%;
 }
 
 .row {
@@ -97,17 +97,18 @@
     font-size: 15px;
     line-height: 1.2;
     /*font-weight: unset !important;*/
-    padding-top: 20px;
+    height: 30px;
     padding-bottom: 20px;
+    padding-top: 20px;
     border-bottom: 1px solid #f2f2f2;
 }
 
 .emptyRow .cell {
-    border-bottom: 1px solid #f2f2f2
+    border-bottom: 1px solid #f2f2f2;
 }
 
 .emptyRow {
-    height: 59px;
+    height: 71px;
     width: 100%;
     background: white;
     cursor: default;
