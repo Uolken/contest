@@ -30,6 +30,7 @@ import ProblemManagementPage from "./teacherPages/ProblemManagementPage/ProblemM
 import WorkCreationPage from "./teacherPages/WorkCreationPage/WorkCreationPage"
 import SubmissionPage from "./SubmissionPage/SubmissionPage"
 import CreateStudentPage from "./teacherPages/CreateStudentPage/CreateStudentPage"
+import MySubmissionsPage from "./MySubmissionsPage/MySubmissionsPage"
 
 const AuthorizedUserPages = observer(() => {
   return (
@@ -41,10 +42,10 @@ const AuthorizedUserPages = observer(() => {
         <AuthorizedRoute exact path="/works/:workId/problems/:problemId" component={WorkProblemPage} />
         <AuthorizedRoute exact path="/works/:workId/problems/:problemId/submissions/:submissionId" component={SubmissionPage} />
         {/*<AuthorizedRoute path="/exams" component={MyWorksPage} />*/}
-        <AuthorizedRoute path="/contests" component={MyWorksPage} />
+        {/*<AuthorizedRoute path="/contests" component={MyWorksPage} />*/}
         <AuthorizedRoute exact path="/library" component={LibraryPage} />
         <AuthorizedRoute exact path="/library/:problemId" component={LibraryProblemPage} />
-        <AuthorizedRoute path="/calendar" component={ProfilePage} />
+        <AuthorizedRoute path="/submissions" component={MySubmissionsPage} />
         <AuthorizedRoute path="/settings" component={ProfilePage} />
         <TeacherRoute exact path="/teaching/groups" component={GroupsManagementPage} />
         <TeacherRoute exact path="/teaching/students" component={StudentsManagementPage} />
