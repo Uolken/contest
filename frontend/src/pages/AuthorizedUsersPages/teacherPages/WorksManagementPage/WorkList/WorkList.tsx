@@ -1,15 +1,14 @@
 import { Column } from "../../../../../components/GenericTable/GenericTable"
 import { BooleanParam, NumberParam, StringParam, useQueryParam } from "use-query-params"
 import DynamicTable from "../../../../../components/DynamicTable/DynamicTable"
-import { User, UserRole, Work } from "../../../../../types"
+import { Work } from "../../../../../types"
 import { observer } from "mobx-react-lite"
-import studentsManagementPage from "../../../../../store/studentsManagementPage"
 import { useEffect } from "react"
 import worksManagementPage from "../../../../../store/pages/worksManagementPage"
 import { DateTime } from "luxon"
 import { fromDateString } from "../../../../../utils"
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 10
 
 const columns: Array<Column<Work>> = [
   {
@@ -25,16 +24,20 @@ const columns: Array<Column<Work>> = [
     sortable: true
   },
   {
-    readableName: "Начало",
     name: "start",
-    content: w => fromDateString(w.start)?.toLocaleString(DateTime.DATE_MED) || "",
-    sortable: true
+    readableName: "Начало",
+    sortable: true,
+    content: a => fromDateString(a.start)
+    ?.toLocaleString(DateTime.DATETIME_SHORT) || "",
+    sortValue: a => +(fromDateString(a.start) || 0)
   },
   {
-    readableName: "Конец",
     name: "end",
-    content: w => fromDateString(w.end)?.toLocaleString(DateTime.DATE_MED) || "",
-    sortable: true
+    readableName: "Конец",
+    sortable: true,
+    content: a => fromDateString(a.end)
+    ?.toLocaleString(DateTime.DATETIME_SHORT) || "",
+    sortValue: a => +(fromDateString(a.end) || 0)
   },
   {
     readableName: "Задачи",

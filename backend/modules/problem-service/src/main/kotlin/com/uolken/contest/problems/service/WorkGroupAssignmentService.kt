@@ -58,13 +58,13 @@ class WorkGroupAssignmentServiceImpl(
                             .let {
                                 if(a.start == null) it.bindNull(3, LocalDateTime::class.java) else it.bind(
                                     3,
-                                    a.start!!
+                                    a.start?.toLocalDateTime()!!
                                 )
                             }
                             .let {
                                 if(a.end == null) it.bindNull(4, LocalDateTime::class.java) else it.bind(
                                     4,
-                                    a.end!!
+                                    a.end?.toLocalDateTime()!!
                                 )
                             }
                             .add()

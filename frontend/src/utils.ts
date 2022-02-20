@@ -18,7 +18,7 @@ export const validateEmail = (email: string) => {
   return String(email)
   .toLowerCase()
   .match(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   )
 }
 
@@ -38,6 +38,7 @@ export enum AssignmentStatus {
 
 export const assignmentStatus = (assignment: WorkGroupAssignment) => {
   const start = fromDateString(assignment.start)
+  console.log(assignment)
 
   if (start != null && +start > +DateTime.now()) {
     return AssignmentStatus.not_started
@@ -58,5 +59,11 @@ export const assignmentStatus = (assignment: WorkGroupAssignment) => {
 }
 
 export const fromDateString = (dateStr: string | undefined) => {
-  return dateStr ? DateTime.fromISO(dateStr, {zone: "utc"}) : undefined
+  // console.log(dateStr)
+  // console.log(DateTime.fromISO(dateStr || "").toLocaleString(DateTime.TIME_24_SIMPLE))
+  return dateStr ? DateTime.fromISO(dateStr) : undefined
 }
+
+export const toInputDate = (dateStr: string) => DateTime.fromISO(dateStr).toFormat("yyyy-MM-dd\'T\'hh:mm")
+
+export const fromInputDate = (dateStr: string) => DateTime.fromISO(dateStr).toFormat("yyyy-MM-dd\'T\'hh:mm\'Z\'")

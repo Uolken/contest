@@ -18,14 +18,14 @@ const columns: Array<Column<WorkGroupAssignment>> = [
     name: "start",
     readableName: "Начало",
     sortable: true,
-    content: a => fromDateString(a.start)?.toLocaleString(DateTime.DATE_MED) || "",
+    content: a => fromDateString(a.start)?.toLocaleString(DateTime.DATETIME_SHORT) || "",
     sortValue: a => +(fromDateString(a.start) || 0)
   },
   {
     name: "end",
     readableName: "Конец",
     sortable: true,
-    content: a =>fromDateString(a.end)?.toLocaleString(DateTime.DATE_MED) || "",
+    content: a =>fromDateString(a.end)?.toLocaleString(DateTime.DATETIME_SHORT) || "",
     sortValue: a =>  +(fromDateString(a.end) || 0)
   },
   {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './CommonInfoPage.module.css'
 import CalendarBlock from '../../../components/CalendarBlock/CalendarBlock'
 import WorkCountCard from "./cards/WorkCountCard"
-import ExpiredTasksCard from "./cards/SubmissionCountCard"
+import SubmissionCountCard from "./cards/SubmissionCountCard"
 import CompletedWorksCard from "./cards/CompletedWorks"
 import graphQLApi, { Query } from "../../../api/graphQLApi"
 import {
@@ -24,7 +24,6 @@ import {
   ReactComponent as CompletedCircleIcon
 } from "../../../images/icons/completed-circle-bar.svg"
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock-icon.svg"
-import SubmissionCountCard from "./cards/SubmissionCountCard"
 import { fromDateString } from "../../../utils"
 
 const assignmentsQuery: Query<{ userId: number }, { user: User }> = {
@@ -192,6 +191,14 @@ const SubmissionList = ({ submissions }: { submissions: Array<Submission> }) => 
       if (s.status == SubmissionStatus.ToTest) {
         icon = <ClockIcon/>
       }
+      console.log(s.submitted,)
+      console.log(DateTime.fromISO(s.submitted, { zone: "utc" })
+      .toLocaleString({
+        timeStyle: "short",
+        timeZone: "system"
+      }))
+      console.log(DateTime.fromISO(s.submitted)
+      .toLocaleString({ timeStyle: "short" }))
       return <div className={styles.submission} key={s.id}>
         <div>
           {icon}
@@ -201,7 +208,7 @@ const SubmissionList = ({ submissions }: { submissions: Array<Submission> }) => 
             Решение {s.problem.name}
           </div>
           <div className={styles.submissionTime}>
-            {fromDateString(s.submitted)!
+            {DateTime.fromISO(s.submitted)
             .toLocaleString({ timeStyle: "short" })}
           </div>
         </div>

@@ -3,21 +3,29 @@ import { Group, Problem, Work, WorkGroupAssignment, WorkType } from "../../types
 import graphQLApi from "../../api/graphQLApi"
 import GraphQLApi from "../../api/graphQLApi"
 import { SAVE_WORK, SAVE_WORK_ASSIGNMENTS, WORK } from "../../api/queries"
-import { DateTime } from "luxon"
-import { fromDateString } from "../../utils"
 
 class WorkManagementPage {
+  get end(): string | undefined {
+    return this._end
+  }
+
+  set end(value: string | undefined) {
+    this._end = value
+  }
+
   get start(): string | undefined {
     return this._start
   }
+
   set start(value: string | undefined) {
     this._start = value
   }
+
   work: Work | undefined | null
 
   workName: string | undefined
   private _start: string | undefined
-  end: string | undefined
+  private _end: string | undefined
   problems: Array<Problem> = []
   assignments: Array<WorkGroupAssignment> = []
 
@@ -44,10 +52,8 @@ class WorkManagementPage {
   setWork(work: Work | undefined | null) {
     this.work = work
     this.workName = work?.name
-    this._start = work?.start && DateTime.fromISO(work?.start).toUTC()
-    .toFormat("yyyy-MM-dd\'T\'hh:mm") || null
-    this.end = work?.end && DateTime.fromISO(work?.end).toUTC()
-    .toFormat("yyyy-MM-dd\'T\'hh:mm") || null
+    this._start = work?.start
+    this._end = work?.end
     this.problems = work?.problems || []
     this.assignments = work?.assignments || []
     work && this.assignments.forEach(a => a.work = work)
@@ -81,25 +87,21 @@ class WorkManagementPage {
     this.assignments.push({
       work: this.work!,
       type: WorkType.Homework,
-      start: this._start ? DateTime.fromFormat(this._start, "yyyy-MM-dd\'T\'hh:mm")
-      .toISO() : undefined,
-      end: this.end ? DateTime.fromFormat(this.end, "yyyy-MM-dd\'T\'hh:mm")
-      .toISO() : undefined,
+      start: this._start,
+      end: this._end,
       group: group
     })
   }
 
   sendUpdates() {
     const workName = this.workName || ""
-    const startStr = this._start && this._start + "Z" || null
-    const endStr = this.end && this.end + "Z" || null
     return GraphQLApi(SAVE_WORK, {
       work: {
         id: this.work?.id,
         name: workName,
         type: WorkType.Homework,
-        start: startStr,
-        end: endStr,
+        start: this._start,
+        end: this._end,
         problemIds: this.problems.map(p => p.id),
       }
     })

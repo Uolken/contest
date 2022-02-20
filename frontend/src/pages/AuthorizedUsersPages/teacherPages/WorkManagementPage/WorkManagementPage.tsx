@@ -12,6 +12,7 @@ import ProblemSelectorModal from "../../../../modals/ProblemSelectorModal/Proble
 import EditableField from "../../../../components/EditableField/EditableField"
 import GroupSelectorModal from "../../../../modals/GroupSelectorModal/GroupSelectorModal"
 import EditAssignmentModal from "../../../../modals/EditAssignmentModal/EditAssignmentModal"
+import { fromInputDate, toInputDate } from "../../../../utils"
 
 const WorkManagementPage = observer(({ match }: RouteComponentProps<{ workId: string }>) => {
   const history = useHistory()
@@ -46,15 +47,15 @@ const WorkManagementPage = observer(({ match }: RouteComponentProps<{ workId: st
           <div>
             Начало:
           </div>
-          <input type="datetime-local" value={workManagementPage.start || ""}
-                 onChange={e => workManagementPage.start = e.target.value}/>
+          <input type="datetime-local" value={toInputDate(workManagementPage.start || "")}
+                 onChange={e => workManagementPage.start = fromInputDate(e.target.value)}/>
         </label>
         <label>
           <div>
             Окончание:
           </div>
-          <input type="datetime-local" value={workManagementPage.end || ""}
-                 onChange={e => workManagementPage.end = e.target.value}/>
+          <input type="datetime-local" value={toInputDate(workManagementPage.end || "")}
+                 onChange={e => workManagementPage.end = fromInputDate(e.target.value)}/>
         </label>
       </div>
     </div>
@@ -79,7 +80,7 @@ const WorkManagementPage = observer(({ match }: RouteComponentProps<{ workId: st
             assignment={workManagementPage.assignments.filter(a => a.group.id == workManagementPage.editAssignmentGroupId)[0]}
             onClose={() => workManagementPage.editAssignmentGroupId = undefined}
             onChange={a => workManagementPage.updateAssignment(a)}
-            onDelete={a => workManagementPage.removeAssignment()}
+            onDelete={_ => workManagementPage.removeAssignment()}
         />
     }
 
