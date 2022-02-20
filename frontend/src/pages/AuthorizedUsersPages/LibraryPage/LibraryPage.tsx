@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite"
 import BreadCrumbs from "../../../components/BreadCrumbs/BreadCrumbs"
 import libraryPage from "../../../store/libraryPage"
 import { useEffect, useState } from "react"
-import { BooleanParam, NumberParam, StringParam, useQueryParam } from "use-query-params"
+import { ArrayParam, BooleanParam, NumberParam, StringParam, useQueryParam } from "use-query-params"
 import DynamicTable from "../../../components/DynamicTable/DynamicTable"
 import { Column } from "../../../components/GenericTable/GenericTable"
 import { Problem } from "../../../types"
@@ -32,6 +32,7 @@ const LibraryPage = observer(() => {
   const [currentPage, setCurrentPage] = useQueryParam('currentPage', NumberParam)
   const [sortColumn, setSortColumn] = useQueryParam('sortColumn', StringParam)
   const [sortDirIsDesc, setSortDirIsDesc] = useQueryParam('sortDirIsDesc', BooleanParam)
+  const [tagIds, setTagIds] = useQueryParam('tag', ArrayParam)
   const [problems, setProblems] = useState<Array<Problem>>()
   const [problemCount, setProblemCount] = useState<number>()
 
@@ -48,7 +49,9 @@ const LibraryPage = observer(() => {
       sortField: updatableProps.sortColumn,
       sortDirIsDesc: updatableProps.sortDirIsDesc
     },
-    problemSelector: {}
+    problemSelector: {
+      tagIds
+    }
   }
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const LibraryPage = observer(() => {
     .then(r => setProblems(r.problems))
     graphQLApi(PROBLEM_COUNT, { selector: selector.problemSelector })
     .then(r => setProblemCount(r.problemCount))
-  }, [currentPage, sortColumn, sortDirIsDesc])
+  }, [currentPage, sortColumn, sortDirIsDesc, tagIds])
 
   if (!problems) return <div>LOADING</div>
   const pageCount = problemCount ? Math.ceil(problemCount / PAGE_SIZE) : undefined

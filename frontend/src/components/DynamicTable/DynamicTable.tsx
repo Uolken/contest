@@ -68,6 +68,7 @@ const DynamicTable = <T, K>({
               className={classNames(styles.row, { [styles.clickable]: !!(linkExtractor || onClick) })}
               key={keyExtractor(row)}
               onClick={e => {
+                if (e.defaultPrevented) return
                 onClick && onClick(row)
                 linkExtractor && history.push(linkExtractor(row))
               }}>

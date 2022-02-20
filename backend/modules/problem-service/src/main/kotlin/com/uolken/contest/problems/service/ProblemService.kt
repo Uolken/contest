@@ -109,8 +109,8 @@ class ProblemServiceImpl(
                 params.put("name", "%${it.toLowerCase()}%")
             }
 
-        // problemSelector.tagIds
-        //     ?.let { if(it.isNotEmpty()) query.append("AND w.type IN (${it.joinToString(",") {"\'$it\'"}}) ") }
+        problemSelector.tagIds
+            ?.let { if(it.isNotEmpty()) query.append("AND exists(select * from problem_tag pt WHERE pt.problem_id = p.id and pt.tag_id in (${it.joinToString() { it.toString() }})) ") }
 
         problemSelector.authorId
             ?.let { query.append("AND p.author_id=${it} ") }
@@ -119,7 +119,7 @@ class ProblemServiceImpl(
             ?.let { query.append("AND p.in_library=${it} ") }
 
         problemSelector.excludeIds
-            ?.let { if (it.isNotEmpty()) query.append("AND p.id NOT IN (${it.joinToString() {it.toString()}})") }
+            ?.let { if(it.isNotEmpty()) query.append("AND p.id NOT IN (${it.joinToString() { it.toString() }})") }
 
         val pageSelector = problemSelectorWithPage.pageSelector
         val pageSize = if(pageSelector.pageSize > MAX_PAGE_SIZE) MAX_PAGE_SIZE else pageSelector.pageSize
@@ -145,8 +145,8 @@ class ProblemServiceImpl(
                 params.put("name", "%${it.toLowerCase()}%")
             }
 
-        // problemSelector.tagIds
-        //     ?.let { if(it.isNotEmpty()) query.append("AND w.type IN (${it.joinToString(",") {"\'$it\'"}}) ") }
+        problemSelector.tagIds
+            ?.let { if(it.isNotEmpty()) query.append("AND exists(select * from problem_tag pt WHERE pt.problem_id = p.id and pt.tag_id in (${it.joinToString() { it.toString() }})) ") }
 
         problemSelector.authorId
             ?.let { query.append("AND p.author_id=${it} ") }

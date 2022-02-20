@@ -10,8 +10,7 @@ const TagList = ({ tags }: TagListProps) => {
   return <div className={styles.tagList}>
     <div><img src={tagIcon} alt=""/></div>
     {tags.map((t, i) => <div className={styles.tag} key={t.id}>
-      <Link to={`/library?tag=${t.id}`}>{t.name}</Link>
-      {i < tags.length - 1 && <span>, </span>}
+      <Link to={`/library?tag=${t.id}`}>{t.name}{i < tags.length - 1 && ","}</Link>
     </div>)}
   </div>
 }
