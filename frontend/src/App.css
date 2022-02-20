@@ -10,7 +10,10 @@
     margin: auto;
 }
 
-
+.withInfo {
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 h1 {
     /*font-family: Inter;*/

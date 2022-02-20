@@ -87,6 +87,7 @@ class ProblemController(
         name,
         text,
         authorId,
+        inLibrary,
         objectMapper.readValue(this.examples.asArray())
     )
 }

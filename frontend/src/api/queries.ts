@@ -5,7 +5,6 @@ import {
   ProblemSelectorInput,
   ProblemSelectorWithPageInput,
   ProblemUpdateDtoInput, Submission, SubmissionSelectorInput, SubmissionSelectorWithPageInput, Tag,
-  TestCase,
   TestCaseDtoInput, UpdateGroupRequestInput,
   User,
   UserSelectorInput,
@@ -244,6 +243,7 @@ query problem($problemId: Long!) {
     id
     name
     text
+    inLibrary
     tags {
       id
       name

@@ -13,6 +13,7 @@ class ProblemManagementPage {
   problemExamples: Array<Example> | undefined
   problemTestCases: Array<TestCase> | undefined
   tags: Array<Tag> | undefined
+  inLibrary: boolean | undefined
 
   editorState: EditorState = EditorState.createEmpty()
 
@@ -36,6 +37,7 @@ class ProblemManagementPage {
     this.editorState = EditorState.createWithContent(stateFromHTML(problem?.text || ""))
     this.problemTestCases = problem?.testCases.sort((o1, o2) => o1.id - o2.id) || []
     this.tags = problem?.tags || []
+    this.inLibrary = problem?.inLibrary
 
     this.problem = problem
   }
@@ -113,7 +115,7 @@ class ProblemManagementPage {
         name,
         text: stateToHTML(this.editorState.getCurrentContent()),
         examples: this.problemExamples!,
-        inLibrary: true,
+        inLibrary: this.inLibrary || false,
         tags: this.tags?.map(t => {
           return {
             id: t.id as number || 0,

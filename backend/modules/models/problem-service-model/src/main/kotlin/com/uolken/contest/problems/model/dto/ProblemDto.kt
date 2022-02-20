@@ -8,5 +8,6 @@ data class ProblemDto(
     val name: String,
     val text: String,
     val authorId: Long,
+    val inLibrary: Boolean,
     val examples: List<Example>
 )

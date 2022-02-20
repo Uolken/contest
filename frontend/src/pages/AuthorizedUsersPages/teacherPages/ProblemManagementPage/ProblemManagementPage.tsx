@@ -2,24 +2,23 @@ import BreadCrumbs from "../../../../components/BreadCrumbs/BreadCrumbs"
 import { RouteComponentProps } from "react-router"
 import problemManagementPage from "../../../../store/pages/problemManagementPage"
 import * as React from "react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import 'draft-js/dist/Draft.css'
 import styles from './ProblemManagementPage.module.css'
 import { Example, Tag } from "../../../../types"
 import TextEditor from "./TextEditor"
-import { ContentState, Editor, EditorState, getDefaultKeyBinding } from "draft-js"
+import { ContentState, Editor, EditorState } from "draft-js"
 import { ReactComponent as TrashIcon } from '../../../../images/icons/trash-icon.svg'
 import { ReactComponent as PlusIcon } from '../../../../images/icons/plus-icon.svg'
-import { ReactComponent as EditIcon } from '../../../../images/icons/edit-icon.svg'
 import TestCasesEditorBlock from "./TestCaseEditorBlock/TestCasesEditorBlock"
 import ErrorPopup from "../../../../components/ErrorPopup/ErrorPopup"
 import { useHistory } from "react-router-dom"
 import EditableField from "../../../../components/EditableField/EditableField"
-import ReactTags from 'react-tag-autocomplete'
 import AutocomplitableTags from "../../../../components/AutocmplitableTags/AutocomplitableTags"
 import graphQLApi from "../../../../api/graphQLApi"
-import { GROUPS, TAGS } from "../../../../api/queries"
+import { TAGS } from "../../../../api/queries"
+import Button from "../../../../components/Button/Button"
 
 const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problemId: string }>) => {
   useEffect(() => {
@@ -46,14 +45,24 @@ const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problem
     ]}/>
     <div className={"pageHeader"}>
       <EditableField value={problemManagementPage.problemName || ""}
-                         placeholder={"Название"}
-                         onChange={v => problemManagementPage.problemName = v}/>
-      <button onClick={() => problemManagementPage.sendUpdates()
-      .then((problemId) => {
-        if (match.params.problemId == "new") history.push(`/teaching/problems/${problemId}`)
-        window.location.reload()
-      })}>Сохранить изменения
-      </button>
+                     placeholder={"Название"}
+                     onChange={v => problemManagementPage.problemName = v}/>
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 16
+      }}>
+        <label>
+            <span className={"withInfo"}
+                  title={"Доступ к этой задаче будет возможен не только через работы, но и через библиотеку задач"}>Общий доступ</span>
+          <input type="checkbox" checked={problemManagementPage.inLibrary || false} onChange={e => problemManagementPage.inLibrary = e.target.checked}/>
+        </label>
+        <Button action={() => problemManagementPage.sendUpdates()
+        .then((problemId) => {
+          if (match.params.problemId == "new") history.push(`/teaching/problems/${problemId}`)
+          window.location.reload()
+        })} text={"Сохранить"}/>
+      </div>
     </div>
 
 

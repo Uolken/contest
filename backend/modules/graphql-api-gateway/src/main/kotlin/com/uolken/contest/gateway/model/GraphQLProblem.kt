@@ -15,6 +15,7 @@ class GraphQLProblem(private val problem: ProblemDto) {
     val id: Long get() = problem.id
     val name: String get() = problem.name
     val text: String get() = problem.text
+    val inLibrary: Boolean get() = problem.inLibrary
     val examples: List<Example> get() = problem.examples
 
     fun author(dataFetchingEnvironment: DataFetchingEnvironment): CompletableFuture<GraphQLUser> {

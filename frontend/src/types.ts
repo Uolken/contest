@@ -173,6 +173,7 @@ export type Problem = {
   author: User;
   examples: Array<Example>;
   id: Scalars['Long'];
+  inLibrary: Scalars['Boolean'];
   name: Scalars['String'];
   tags: Array<Tag>;
   testCaseCount: Scalars['Long'];
