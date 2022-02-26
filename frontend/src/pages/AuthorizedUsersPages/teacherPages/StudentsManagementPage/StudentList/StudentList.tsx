@@ -5,6 +5,7 @@ import { User, UserRole } from "../../../../../types"
 import { observer } from "mobx-react-lite"
 import studentsManagementPage from "../../../../../store/studentsManagementPage"
 import { useEffect } from "react"
+import BigLoading from "../../../../../components/BigLoading/BigLoading"
 
 const PAGE_SIZE = 10
 
@@ -69,7 +70,7 @@ const StudentList = observer(() => {
   useEffect(updateStudents, [nameOrEmail, updatableProps.sortColumn, updatableProps.sortDirIsDesc, updatableProps.currentPage,])
 
   const elementsToShow = studentsManagementPage.students
-  if (!elementsToShow) return <div>LOADING</div>
+  if (!elementsToShow) return <BigLoading/>
   const studentCount = studentsManagementPage.studentCount
   const pageCount = studentCount ? Math.ceil(studentCount / PAGE_SIZE) : undefined
   return <div>

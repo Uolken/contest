@@ -9,6 +9,7 @@ import graphQLApi from "../../../api/graphQLApi"
 import { ASSIGNED_WORKS_WITH_SOLUTION_INFO } from "../../../api/queries"
 import { WorkGroupAssignment } from "../../../types"
 import { assignmentStatus, AssignmentStatus } from "../../../utils"
+import BigLoading from "../../../components/BigLoading/BigLoading"
 
 const MyWorksPage = observer(() => {
   const [workStatusFiler, setWorkStatusFilter] = useState([AssignmentStatus.in_progress])
@@ -16,8 +17,10 @@ const MyWorksPage = observer(() => {
   useEffect(() => {
     const groupId = sessionInfo.userGroupId
     const userId = sessionInfo.userId
-    console.log(groupId)
-    if (!userId || !groupId) return
+    if (!userId || !groupId) {
+      setWorkAssignments([])
+      return
+    }
     graphQLApi(ASSIGNED_WORKS_WITH_SOLUTION_INFO, {
       groupId,
       userId
@@ -31,7 +34,6 @@ const MyWorksPage = observer(() => {
     })
   }, [])
   const workAssignmentsToShow = workAssignments?.filter(a => workStatusFiler.includes(assignmentStatus(a)))
-
   return <div className="page">
     <BreadCrumbs elements={[{
       name: "Работы",
@@ -40,7 +42,7 @@ const MyWorksPage = observer(() => {
     <div className={styles.header}>Работы</div>
     <div>Фильтр: <ProblemGroupFilter onChange={setWorkStatusFilter}/></div>
     <div>
-      {workAssignmentsToShow != undefined ? <WorkList workAssignments={workAssignmentsToShow}/> : <div>LOADING</div>}
+      {workAssignmentsToShow !== undefined ? <WorkList workAssignments={workAssignmentsToShow}/> : <BigLoading/>}
     </div>
   </div>
 

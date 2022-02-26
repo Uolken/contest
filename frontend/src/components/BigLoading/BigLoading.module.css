@@ -1,0 +1,27 @@
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+}
+.logo {
+    position: absolute;
+}
+
+.circle {
+    position: absolute;
+}
+
+.circleBlock {
+    height: 400px;
+    width: 400px;
+
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform:rotate(360deg);
+    }
+}

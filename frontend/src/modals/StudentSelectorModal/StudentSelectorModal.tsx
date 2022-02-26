@@ -10,6 +10,7 @@ import newGroupForm from "../../store/forms/newGroupForm"
 import Button from "../../components/Button/Button"
 import workManagementPage from "../../store/pages/workManagementPage"
 import * as React from "react"
+import SmallLoading from "../../components/SmallLoading/SmallLoading"
 
 
 const columns: Array<Column<User>> = [
@@ -78,9 +79,6 @@ export default ({
     })
   }, [excludedIds, hasNoGroup])
 
-
-  if (!users) return <div>LOADING</div>
-
   return <>
     <div className={modalStyles.modalBack} onClick={onClose}></div>
     <div className={modalStyles.modal}>
@@ -104,7 +102,6 @@ export default ({
       </div>
 
       <div>
-
         {users ?
           <DynamicTable columns={columns} pageSize={PAGE_SIZE} keyExtractor={p => p.id} linkExtractor={null}
                         onClick={u => onSelect(u)}
@@ -117,7 +114,7 @@ export default ({
             setCurrentPage(p.currentPage)
             setSortField(p.sortColumn)
             setSortDirIsDesc(p.sortDirIsDesc)
-          }}/> : <div>LOADING</div>}
+          }}/> : <SmallLoading/> }
       </div>
 
     </div>

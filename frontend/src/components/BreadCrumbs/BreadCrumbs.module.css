@@ -1,6 +1,6 @@
 .breadCrumbs {
     display: flex;
-
+    align-items: center;
     color: #71717A;
 }
 

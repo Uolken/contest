@@ -19,6 +19,7 @@ import AutocomplitableTags from "../../../../components/AutocmplitableTags/Autoc
 import graphQLApi from "../../../../api/graphQLApi"
 import { TAGS } from "../../../../api/queries"
 import Button from "../../../../components/Button/Button"
+import ContentLoader from "react-content-loader"
 
 const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problemId: string }>) => {
   useEffect(() => {
@@ -30,7 +31,6 @@ const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problem
   }, [match.params.problemId])
   const history = useHistory()
   const problem = problemManagementPage.problem
-  if (problem === undefined) return <div>LOADING</div>
 
   return <div className={"page"}>
     <BreadCrumbs elements={[
@@ -38,15 +38,22 @@ const ProblemManagementPage = observer(({ match }: RouteComponentProps<{ problem
         name: "Задачи",
         url: "/teaching/problems"
       },
-      {
+      problemManagementPage.problem !== undefined ? {
         name: problem?.name || "Новая задача",
         url: `/teaching/problems/${problem?.id || "new"}`
-      }
+      }: undefined
     ]}/>
     <div className={"pageHeader"}>
+      { problemManagementPage.problem !== undefined ?
       <EditableField value={problemManagementPage.problemName || ""}
                      placeholder={"Название"}
                      onChange={v => problemManagementPage.problemName = v}/>
+        :  <ContentLoader backgroundColor={'#bbb'}
+                          foregroundColor={'#ddd'}
+                          height={30} width={150}
+        >
+          <rect x="0" y="0" rx="4" ry="4" width="150" height="30"/>
+        </ContentLoader>}
       <div style={{
         display: "flex",
         alignItems: "center",

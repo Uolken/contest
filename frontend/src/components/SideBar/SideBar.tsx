@@ -20,24 +20,24 @@ const SideBar = observer(() => {
   }, [sessionInfo.userId])
 
   return (
-    // eslint-disable-next-line no-return-assign,max-len
     <div className={styles.sideBar} onMouseEnter={() => setHovered(1)}
          onMouseLeave={() => setHovered(0)}>
       <div>
 
         <div className={styles.sideBarGroup}>
-          {/* eslint-disable-next-line max-len */}
           {user && <SideBarUserInfo avatar={avatar} fullName={fullName(user)}
                                     groupName={user.group?.name}
                                     hasNotification isOpened={!!isHovered}/>}
         </div>
-        <div className={styles.sideBarGroup}>
-          <ul className={styles.sideBarElementsList}>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {sideBar.firstGroup.map((el) => <SideBarItem {...el} isOpened={!!isHovered}
-                                                         key={el.name}/>)}
-          </ul>
-        </div>
+
+        {
+          !sessionInfo.isTeacher() &&         <div className={styles.sideBarGroup}>
+                <ul className={styles.sideBarElementsList}>
+                  {sideBar.studentGroup.map((el) => <SideBarItem {...el} isOpened={!!isHovered}
+                                                                 key={el.name}/>)}
+                </ul>
+            </div>
+        }
         {
           sessionInfo.isTeacher() && <div className={styles.sideBarGroup}>
                 <ul className={styles.sideBarElementsList}>

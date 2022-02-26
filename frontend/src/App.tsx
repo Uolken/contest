@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import { Switch } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
@@ -17,6 +17,9 @@ import Lab5Decode from "./csec/lab5/Lab5Decode"
 import Lab4 from "./csec/lab4/Lab4"
 
 const App = observer(() => {
+  useEffect(() => {
+    document.title = "Контест СГТУ"
+  }, []);
   Settings.defaultLocale = "ru"
   return (
     <div>

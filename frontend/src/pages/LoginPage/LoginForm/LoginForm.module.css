@@ -6,6 +6,12 @@
     display: flex;
 }
 
+.registrationForm {
+    width: 400px;
+    margin: auto;
+    height: 600px;
+}
+
 .header {
     color: #0284C7;
     margin: 0;
@@ -32,6 +38,11 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 24px;
+}
+
+.formsRow {
+    display: flex;
+    gap: 8px;
 }
 
 .field {

@@ -10,6 +10,7 @@ import SubmissionModal, { SubmissionStatusBlock } from "../../../modals/Submissi
 import { fromDateString } from "../../../utils"
 import studentManagementPage from "../../../store/pages/studentManagementPage"
 import BreadCrumbs from "../../../components/BreadCrumbs/BreadCrumbs"
+import BigLoading from "../../../components/BigLoading/BigLoading"
 
 const PAGE_SIZE = 10
 
@@ -91,7 +92,7 @@ export default () => {
       },
     ]}/>
     <h1>Решения</h1>
-    {submissions && <DynamicTable columns={columns} updatableProps={updatableProps}
+    {submissions ? <DynamicTable columns={columns} updatableProps={updatableProps}
                                   elementsToShow={submissions}
                                   hideHeader={false}
                                   hook={p => {
@@ -100,7 +101,7 @@ export default () => {
                                   onClick={s => setSubmissionIdToShow(s.id)}
                                   keyExtractor={s => s.id}
                                   pageCount={Math.ceil((submissionCount || 1) / PAGE_SIZE)}
-                                  pageSize={PAGE_SIZE}/>}
+                                  pageSize={PAGE_SIZE}/> : <BigLoading/>}
     {submissionIdToShow && <SubmissionModal submissionId={submissionIdToShow}
                       onClose={() => setSubmissionIdToShow(undefined)}
                       teacherMode={true}/>}

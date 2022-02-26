@@ -25,6 +25,7 @@ import {
 } from "../../../images/icons/completed-circle-bar.svg"
 import { ReactComponent as ClockIcon } from "../../../images/icons/clock-icon.svg"
 import { fromDateString } from "../../../utils"
+import SmallLoading from "../../../components/SmallLoading/SmallLoading"
 
 const assignmentsQuery: Query<{ userId: number }, { user: User }> = {
   query: `
@@ -67,12 +68,12 @@ query submissionCountsByDates($start: Date!, $end: Date!, $userId: Long!, $timez
 
 const CommonInfoPage = observer(() => {
   const [assignments, setAssignments] = useState<Array<WorkGroupAssignment> | undefined>(undefined)
-  const [submissionCounts, setSubmissionCount] = useState<Array<{ date: string, count: number }>>([])
+  const [submissionCounts, setSubmissionCount] = useState<Array<{ date: string, count: number }>>()
   const [selectedSubmissionsDate, setSelectedSubmissionsDate] = useState(DateTime.now())
-  const [submissions, setSubmissions] = useState<Array<Submission>>()
+  const [submissions, setSubmissions] = useState<Array<Submission> | undefined>()
 
   const getColorScale = (() => {
-    const max = Math.max(...submissionCounts.map(s => s.count))
+    const max = Math.max(...(submissionCounts?.map(s => s.count) || [0]))
     return (value: { date: string, count: number }) => {
       if (value.count > max * 0.9) return styles.colorScale4
       if (value.count >= max * 0.5) return styles.colorScale3
@@ -83,7 +84,7 @@ const CommonInfoPage = observer(() => {
 
   useEffect(() => {
     graphQLApi(assignmentsQuery, { userId: sessionInfo.userId })
-    .then(r => setAssignments(r.user.group?.workAssignments))
+    .then(r => setAssignments(r.user.group?.workAssignments || []))
   }, [])
 
   const end = DateTime.now()
@@ -106,6 +107,7 @@ const CommonInfoPage = observer(() => {
   }, [])
 
   useEffect(() => {
+    setSubmissions(undefined)
     graphQLApi(SUBMISSIONS, {
       selector: {
         submissionSelector: {
@@ -147,13 +149,13 @@ const CommonInfoPage = observer(() => {
           <CompletedWorksCard count={worksDone}/>
         </div>
         <div className={styles.smallCard}>
-          <SubmissionCountCard count={submissionCounts.map(s => s.count).reduce((c1, c2) => c1 + c2, 0)}/>
+          <SubmissionCountCard count={submissionCounts?.map(s => s.count).reduce((c1, c2) => c1 + c2, 0)}/>
         </div>
         <div className={styles.heatMapBlock}>
           <CalendarHeatmap
             startDate={start.toJSDate()}
             endDate={end.toJSDate()}
-            values={submissionCounts}
+            values={submissionCounts || []}
 
             classForValue={(value) => {
               if (!value) {
@@ -168,7 +170,7 @@ const CommonInfoPage = observer(() => {
           <div className={styles.submissions}>
             <div>Решения за {selectedSubmissionsDate.toLocaleString({ dateStyle: "medium" })}</div>
             <div>
-              {submissions && <SubmissionList submissions={submissions}/>}
+              {submissions ? <SubmissionList submissions={submissions}/> : <SmallLoading/>}
             </div>
           </div>
         </div>

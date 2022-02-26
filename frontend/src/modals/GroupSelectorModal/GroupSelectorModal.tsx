@@ -5,6 +5,7 @@ import { GROUPS } from "../../api/queries"
 import modalStyles from "../Modal.module.css"
 import { ReactComponent as CrossIcon } from "../../images/icons/cross.svg"
 import GenericTable, { Column } from "../../components/GenericTable/GenericTable"
+import SmallLoading from "../../components/SmallLoading/SmallLoading"
 
 const columns: Array<Column<Group>> = [
   {
@@ -42,9 +43,7 @@ export default ({
     })
   }, [])
 
-  if (!groups) return <div>LOADING</div>
-
-  const data = groups.filter(g => !excludedIds.includes(g.id))
+  const data = groups?.filter(g => !excludedIds.includes(g.id))
 
   return <>
     <div className={modalStyles.modalBack} onClick={onClose}></div>
@@ -56,9 +55,10 @@ export default ({
         </div>
       </div>
       <div>
-        <GenericTable columns={columns} pageSize={PAGE_SIZE} hideHeader={false} linkExtractor={null}
-                      onClick={onSelect}
-                      keyExtractor={g => g.id} data={data}/>
+        {data ? <GenericTable columns={columns} pageSize={PAGE_SIZE} hideHeader={false}
+                              linkExtractor={null}
+                              onClick={onSelect}
+                              keyExtractor={g => g.id} data={data}/> : <SmallLoading/>}
       </div>
 
     </div>

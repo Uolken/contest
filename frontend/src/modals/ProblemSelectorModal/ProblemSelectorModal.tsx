@@ -7,6 +7,7 @@ import { PROBLEM_COUNT, PROBLEMS } from "../../api/queries"
 import { Column } from "../../components/GenericTable/GenericTable"
 import TagList from "../../components/TagList/TagList"
 import DynamicTable from "../../components/DynamicTable/DynamicTable"
+import SmallLoading from "../../components/SmallLoading/SmallLoading"
 
 const PAGE_SIZE = 5
 
@@ -83,7 +84,7 @@ export default ({
             setCurrentPage(p.currentPage)
             setSortField(p.sortColumn)
             setSortDirIsDesc(p.sortDirIsDesc)
-          }}/> : <div>LOADING</div>}
+          }}/> : <SmallLoading/>}
       </div>
 
     </div>

@@ -7,6 +7,7 @@ import { ReactComponent as TasksIcon } from '../../../images/icons/tasks-icon.sv
 import { ReactComponent as NoWorksIcon } from '../../../images/icons/no-works-icon.svg'
 import { Link } from 'react-router-dom'
 import { fromDateString } from "../../../utils"
+import SmallLoading from "../../SmallLoading/SmallLoading"
 
 const SelectedDayActions = ({ assignments, selectedDate }: { assignments: Array<WorkGroupAssignment> | undefined, selectedDate: DateTime }) => {
 
@@ -20,7 +21,7 @@ const SelectedDayActions = ({ assignments, selectedDate }: { assignments: Array<
     <div className={styles.actionsList}>
       {assignmentsToShow ? <div>
         {assignmentsToShow.map(a => <ActionRow assignment={a}/>)}
-      </div>: <div>LOADING</div>}
+      </div>: <SmallLoading/>}
       {assignmentsToShow && assignmentsToShow.length == 0 && <div className={styles.noActions}><NoWorksIcon/><div>Нет событий</div></div>}
       <div/>
     </div>

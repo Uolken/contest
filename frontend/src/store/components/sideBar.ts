@@ -15,7 +15,7 @@ import sessionInfo from "../sessionInfo"
 class SideBar {
   isHovered = false
 
-  firstGroup = [
+  studentGroup = [
     {
       name: 'Общее',
       page: '/common',

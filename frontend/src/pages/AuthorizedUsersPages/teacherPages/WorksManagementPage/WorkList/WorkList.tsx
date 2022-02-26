@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import worksManagementPage from "../../../../../store/pages/worksManagementPage"
 import { DateTime } from "luxon"
 import { fromDateString } from "../../../../../utils"
+import BigLoading from "../../../../../components/BigLoading/BigLoading"
 
 const PAGE_SIZE = 10
 
@@ -75,7 +76,7 @@ const WorkList = observer(() => {
   useEffect(updateWorks, [updatableProps.sortColumn, updatableProps.sortDirIsDesc, updatableProps.currentPage,])
 
   const elementsToShow = worksManagementPage.works
-  if (!elementsToShow) return <div>LOADING</div>
+  if (!elementsToShow) return <BigLoading/>
   const workCount = worksManagementPage.workCount
   const pageCount = workCount ? Math.ceil(workCount / PAGE_SIZE) : undefined
   return <div>

@@ -14,6 +14,7 @@ import CodeEditor from "../../../components/CodeEditor/CodeEditor"
 import TestProgressBar from "../../../components/TestProgressBar/TestProgressBar"
 import codeEditor from "../../../store/components/codeEditor"
 
+// DEPRECATED
 export default ({ match }: RouteComponentProps<{ workId: string, problemId: string, submissionId: string }>) => {
   const workId = +match.params.workId
   const problemId = +match.params.problemId
@@ -38,7 +39,7 @@ export default ({ match }: RouteComponentProps<{ workId: string, problemId: stri
   }, [workId, problemId])
   useEffect(() => {
     graphQLApi(SUBMISSION, { submissionId })
-    .then(r => setSubmission(r.submission))
+    // .then(r => setSubmission(r.submission))
   }, [submissionId])
 
   if (!work || !problem || !submission) return <div>LOADING</div>

@@ -8,6 +8,8 @@ import DynamicTable from "../../components/DynamicTable/DynamicTable"
 import { Column } from "../../components/GenericTable/GenericTable"
 import { DateTime } from "luxon"
 import { fromDateString } from "../../utils"
+import SmallLoading from "../../components/SmallLoading/SmallLoading"
+import * as React from "react"
 
 const PAGE_SIZE = 5
 
@@ -88,7 +90,7 @@ export default ({
             setCurrentPage(p.currentPage)
             setSortField(p.sortColumn)
             setSortDirIsDesc(p.sortDirIsDesc)
-          }}/> : <div>LOADING</div>}
+          }}/> : <SmallLoading/>}
       </div>
 
     </div>

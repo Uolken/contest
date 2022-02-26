@@ -9,7 +9,7 @@ const TwoColumnsWithLogo = ({ children }: { children: any }) => (
     </div>
     <div className={styles.rightColumn}>
       <div className={styles.logoWrapper}>
-        <img src={sstuLogo} alt="previous month" className={styles.logo} />
+        <img src={sstuLogo} alt="sstu logo" className={styles.logo} />
       </div>
     </div>
   </div>

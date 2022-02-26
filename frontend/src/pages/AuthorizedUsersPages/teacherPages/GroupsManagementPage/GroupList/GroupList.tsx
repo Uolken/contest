@@ -3,6 +3,7 @@ import groupList from "../../../../../store/components/groupList"
 import { useEffect } from "react"
 import GenericTable, { Column } from "../../../../../components/GenericTable/GenericTable"
 import { Group } from "../../../../../types"
+import BigLoading from "../../../../../components/BigLoading/BigLoading"
 
 const columns: Array<Column<Group>> = [
   {
@@ -30,7 +31,7 @@ const GroupList = observer(() => {
   useEffect(() => groupList.fetchGroups(), [])
   const groups = groupList.groups
 
-  if (!groups) return <div>LOADING</div>
+  if (!groups) return <BigLoading/>
 
   return <div>
     <h3>Список групп</h3>

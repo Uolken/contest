@@ -2,7 +2,7 @@ import axios from "axios"
 
 const graphQLAxios = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:8341/graphql"
+  baseURL: process.env.REACT_APP_BACKEND_GRAPHQL_SERVER
 })
 
 interface GraphQLResponse<T> {

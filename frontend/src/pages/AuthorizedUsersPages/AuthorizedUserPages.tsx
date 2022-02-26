@@ -41,7 +41,7 @@ const AuthorizedUserPages = observer(() => {
         <AuthorizedRoute exact path="/works" component={MyWorksPage} />
         <AuthorizedRoute exact path="/works/:workId" component={WorkPage} />
         <AuthorizedRoute exact path="/works/:workId/problems/:problemId" component={WorkProblemPage} />
-        <AuthorizedRoute exact path="/works/:workId/problems/:problemId/submissions/:submissionId" component={SubmissionPage} />
+        {/*<AuthorizedRoute exact path="/works/:workId/problems/:problemId/submissions/:submissionId" component={SubmissionPage} />*/}
         {/*<AuthorizedRoute path="/exams" component={MyWorksPage} />*/}
         {/*<AuthorizedRoute path="/contests" component={MyWorksPage} />*/}
         <AuthorizedRoute exact path="/library" component={LibraryPage} />

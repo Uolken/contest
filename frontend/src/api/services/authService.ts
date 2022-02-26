@@ -14,8 +14,14 @@ export class AuthService {
   }
 
   register(email: string, firstName: string, lastName: string, password: string): Promise<SessionResponse> {
-    return graphQLApi(REGISTRATION, {email, firstName, lastName, password})
-      .then(response => response.registration)
+    return graphQLApi(REGISTRATION, { signUpRequest: {
+        email,
+        firstName,
+        lastName,
+        password
+      }
+    })
+    .then(response => response.registration)
   }
 
   whoAmI(): Promise<UserInfo> {

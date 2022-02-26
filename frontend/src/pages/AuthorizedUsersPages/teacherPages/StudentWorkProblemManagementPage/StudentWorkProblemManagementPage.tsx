@@ -10,13 +10,13 @@ import { observer } from "mobx-react-lite"
 
 const StudentWorkProblemManagementPage = observer(({ match }: RouteComponentProps<{ studentId: string, workId: string, problemId: string }>) => {
   useEffect(() => {
-    studentWorkProblemManagementPage.fetchData(+match.params.studentId, +match.params.workId, +match.params.problemId)
+    // studentWorkProblemManagementPage.fetchData(+match.params.studentId, +match.params.workId, +match.params.problemId)
   }, [])
   const student = studentWorkProblemManagementPage.student
   const problem = studentWorkProblemManagementPage.problem
-  if (!student || ! problem) return <div>LOADING</div>
-  const work = student.group?.workAssignment?.work
-  if (!work) return <div>NOT FOUND</div>
+  const work = student?.group?.workAssignment?.work
+  if (!student || ! problem || !work) return <div>LOADING</div> // fixed
+
   return <div className="page">
     <BreadCrumbs elements={[
       {name: "Студенты", url: "/teaching/students"},

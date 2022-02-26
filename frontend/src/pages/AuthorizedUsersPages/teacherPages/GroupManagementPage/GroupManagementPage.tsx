@@ -13,14 +13,11 @@ import WorkSelectorModal from "../../../../modals/WorkSelectorModal/WorkSelector
 import workManagementPage from "../../../../store/pages/workManagementPage"
 import EditAssignmentModal from "../../../../modals/EditAssignmentModal/EditAssignmentModal"
 import * as React from "react"
+import BigLoading from "../../../../components/BigLoading/BigLoading"
 
 const GroupManagementPage = observer(({ match }: RouteComponentProps<{ groupId: string }>) => {
   useEffect(() => groupManagementPage.fetchGroup(+match.params.groupId), [])
   const group = groupManagementPage.group
-
-  if (!group) {
-    return <div>LOADING</div>
-  }
 
   return <div className="page">
     <BreadCrumbs elements={[
@@ -28,12 +25,12 @@ const GroupManagementPage = observer(({ match }: RouteComponentProps<{ groupId: 
         name: "Группы",
         url: "/teaching/groups"
       },
-      {
+      group ? {
         name: group.name,
         url: `/teaching/groups/${group.id}`
-      },
+      } : {name: "", url: ""},
     ]}/>
-
+    { group ? <>
     <div className={"pageHeader"}>
       <EditableField value={groupManagementPage.groupName}
                      onChange={v => groupManagementPage.groupName = v}
@@ -43,7 +40,6 @@ const GroupManagementPage = observer(({ match }: RouteComponentProps<{ groupId: 
         groupManagementPage.sendUpdate()
         .then(g => window.location.reload())
         .catch(e => {
-          console.log(e)
           newGroupForm.showError = true
         })
 
@@ -58,6 +54,8 @@ const GroupManagementPage = observer(({ match }: RouteComponentProps<{ groupId: 
                     onClickAdd={() => groupManagementPage.showWorkSelector = true}
     onEdit={w => groupManagementPage.editAssignmentWorkId = w.work.id }
     />
+    </>: <BigLoading/>
+    }
 
     {groupManagementPage.showStudentSelector &&
         <StudentSelectorModal excludedIds={groupManagementPage.students.map(s => s.id)}

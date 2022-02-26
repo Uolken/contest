@@ -2,7 +2,7 @@
     transition: 0.3s;
     display: flex;
     align-items: center;
-    height: 40px;
+    height: 44px;
     justify-content: space-between;
     width: 239px;
 
@@ -18,6 +18,8 @@
 
 .group {
     color: #52525B;
+    line-height: 22px;
+    font-size: 14px;
 }
 
 .avatar {

@@ -11,8 +11,7 @@ import TagList from "../../../components/TagList/TagList"
 import codeEditor from "../../../store/components/codeEditor"
 import DynamicTable from "../../../components/DynamicTable/DynamicTable"
 import { Column } from "../../../components/GenericTable/GenericTable"
-import { Submission } from "../../../types"
-import { DateTime } from "luxon"
+import { Problem, Submission } from "../../../types"
 import GraphQLApi from "../../../api/graphQLApi"
 import { SUBMISSION_COUNT, SUBMISSIONS } from "../../../api/queries"
 import { fromDateString, fullName, readableDateTime } from "../../../utils"
@@ -30,14 +29,7 @@ subscription testExecutionSubscription($problemId: Long!) {
 }
 `
 
-// set up the client, which can be reused
-const client = new SubscriptionClient(GRAPHQL_ENDPOINT, {
-  reconnect: true,
-  lazy: true, // only connect when there is a query
-  connectionCallback: (error) => {
-    error && console.error(error)
-  },
-})
+
 
 const columns: Array<Column<Submission>> = [
   {
@@ -55,35 +47,23 @@ const columns: Array<Column<Submission>> = [
 ]
 
 const PAGE_SIZE = 5
+// set up the client, which can be reused
+const client = new SubscriptionClient(GRAPHQL_ENDPOINT, {
+  reconnect: true,
+  lazy: true, // only connect when there is a query
+  connectionCallback: (error) => {
+    error && console.error(error)
+  },
+})
+const ProblemPage = observer(({problem}: {problem: Problem, }) => {
 
-const ProblemPage = observer(() => {
-    const problem = problemPage.problem
-    if (!problem) {
-      return <div>LOADING2</div>
-    }
-
-    useEffect(() => {
-      const subscription = client
-      .request({
-        query,
-        variables: { problemId: problem.id }
-      })
-      .subscribe({
-        next: (data: any) => {
-          const event = data.data.problemTestExecutions
-          if (event.type != "TEST_CASE_SUCCEED") updateSubmissions()
-          testProgressBar.update(event)
-        },
-      })
-    }, [])
-
-    const [submissionProps, setSubmissionProps] = useState({
-      currentPage: 0,
-      sortColumn: "submitted",
-      sortDirIsDesc: true
-    })
-    const [submissions, setSubmissions] = useState<Array<Submission>>([])
-    const [submissionCount, setSubmissionCount] = useState(0)
+  const [submissionProps, setSubmissionProps] = useState({
+    currentPage: 0,
+    sortColumn: "submitted",
+    sortDirIsDesc: true
+  })
+  const [submissions, setSubmissions] = useState<Array<Submission>>([])
+  const [submissionCount, setSubmissionCount] = useState(0)
 
     const updateSubmissionCount = () => {
       GraphQLApi(SUBMISSION_COUNT, {
@@ -95,17 +75,31 @@ const ProblemPage = observer(() => {
       })
       .then(r => setSubmissionCount(r.submissionCount))
     }
-    useEffect(updateSubmissionCount, [problem])
+  useEffect(updateSubmissionCount, [problem])
+  useEffect(() => {
+    const subscription = client
+    .request({
+      query,
+      variables: { problemId: problem.id }
+    })
+    .subscribe({
+      next: (data: any) => {
+        const event = data.data.problemTestExecutions
+        if (event.type != "TEST_CASE_SUCCEED") updateSubmissions()
+        testProgressBar.update(event)
+      },
+    })
+  }, [])
 
-    const updateSubmissions = () => {
-      GraphQLApi(SUBMISSIONS, {
-        selector: {
-          submissionSelector: {
-            submitterIds: [sessionInfo.userId],
-            problemIds: [problem.id]
-          },
-          pageSelector: {
-            pageSize: 5,
+  const updateSubmissions = () => {
+    GraphQLApi(SUBMISSIONS, {
+      selector: {
+        submissionSelector: {
+          submitterIds: [sessionInfo.userId],
+          problemIds: [problem.id]
+        },
+        pageSelector: {
+          pageSize: 5,
             currentPage: submissionProps.currentPage,
             sortField: submissionProps.sortColumn,
             sortDirIsDesc: submissionProps.sortDirIsDesc

@@ -55,10 +55,10 @@ mutation refreshToken {
 `
 }
 
-export const REGISTRATION: Query<SignUpRequestInput, { registration: SessionResponse }> = {
+export const REGISTRATION: Query<{signUpRequest: SignUpRequestInput}, { registration: SessionResponse }> = {
   query: `
-mutation registration($email: String!, $password: String!) {
-  registration(signUpRequest: {email: $email, password: $password}) {
+mutation registration($signUpRequest: SignUpRequestInput!) {
+  registration(signUpRequest: $signUpRequest) {
     userInfo {
       id
       email

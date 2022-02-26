@@ -15,7 +15,9 @@ const ProblemList = ({ problems }: { problems: Array<Problem> }) => {
   return <div>
     <h2>Задачи</h2>
     <GenericTable columns={columns} pageSize={5} keyExtractor={p => p.id}
-                  linkExtractor={p => `problems/${p.id}`} data={problems}
+                  // linkExtractor={p => `problems/${p.id}`}
+      linkExtractor={null}
+                  data={problems}
                   hideHeader={false}/>
   </div>
 }

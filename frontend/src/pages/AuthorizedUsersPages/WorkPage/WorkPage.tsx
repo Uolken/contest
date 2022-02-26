@@ -14,8 +14,13 @@ import GenericTable, { Column } from "../../../components/GenericTable/GenericTa
 import {
   ReactComponent as CompletedCircleIcon
 } from "../../../images/icons/completed-circle-bar.svg"
+import {
+  ReactComponent as FailedCircleIcon
+} from "../../../images/icons/failed-circle-bar.svg"
 import { ReactComponent as MinusIcon } from "../../../images/icons/minus.svg"
 import { ReactComponent as FireIcon } from "../../../images/icons/fire.svg"
+import ContentLoader from "react-content-loader"
+import BigLoading from "../../../components/BigLoading/BigLoading"
 
 type WorkPageProps = { workId: string }
 
@@ -23,6 +28,9 @@ const SolutionStatusBlock = ({ status }: { status: SolutionStatus }) => {
   return <div style={{display: "flex", gap: 8, alignItems: "center" } }>
     {status == SolutionStatus.NotSubmitted && <><MinusIcon/><div>Нет решений</div></>}
     {status == SolutionStatus.Accepted && <><CompletedCircleIcon/><div>Решено</div></>}
+    {status == SolutionStatus.FailedTest && <><FailedCircleIcon/><div>Решение не верно</div></>}
+    {status == SolutionStatus.ToTest && <><div>Проверяется</div></>}
+    {status == SolutionStatus.Testing && <><div>Проверяется</div></>}
   </div>
 }
 
@@ -60,19 +68,14 @@ const WorkPage = ({ match }: RouteComponentProps<WorkPageProps>) => {
       setWorkAssignment(r.user.group?.workAssignment!)
     })
   }, [])
-  if (workAssignment == null) {
-    return <div> LOADING </div>
-  }
 
-  const work = workAssignment.work
-  const problems = work.problems
-  const finishedTaskCount = problems.filter(p => p.userSolutionInfo?.status == SolutionStatus.Accepted).length
-  const failedTaskCount = problems.filter(p => p.userSolutionInfo?.status == SolutionStatus.FailedTest).length
+  const work = workAssignment?.work
+  const problems = work?.problems
 
-  const start = workAssignment.start ? fromDateString(workAssignment.start) : null
-  const end = workAssignment.end ? fromDateString(workAssignment.end) : null
+  const start = workAssignment?.start ? fromDateString(workAssignment.start) : null
+  const end = workAssignment?.end ? fromDateString(workAssignment.end) : null
 
-  const status = assignmentStatus(workAssignment)
+  const status = workAssignment ? assignmentStatus(workAssignment) : undefined
   return (
     <div className="page">
       <BreadCrumbs elements={[
@@ -80,44 +83,41 @@ const WorkPage = ({ match }: RouteComponentProps<WorkPageProps>) => {
           name: "Работы",
           url: "/works"
         },
-        {
+        work ? {
           name: work.name,
           url: `/works/${work.id}`
-        },
+        }: undefined,
       ]}/>
       <div className={"pageHeader"}>
-        <h1 className={styles.workTitle}>{work.name}</h1>
+        <h1 className={styles.workTitle}>{work?.name || <ContentLoader backgroundColor={'#bbb'}
+                                                                       foregroundColor={'#ddd'}
+                                                                       height={30} width={150}
+        >
+            <rect x="0" y="0" rx="4" ry="4" width="150" height="30"/>
+        </ContentLoader>}</h1>
       </div>
-      <div>
-        <div className={styles.workCompletionBlock}>
+      {
+        (workAssignment && problems) ? <>
+          <div>
 
-          <WorkStatusBlock assignment={workAssignment} size={Size.big}/>
-          {/*<CircleCompletionBar*/}
-          {/*  total={problems.length}*/}
-          {/*  failed={failedTaskCount}*/}
-          {/*  succeed={finishedTaskCount}*/}
-          {/*  size={CircleCompletionBarSize.big}/>*/}
-          {/*<div className={styles.workCompletionBlockText}>*/}
-          {/*  Выполнено на {Math.floor(finishedTaskCount / problems.length * 100)}%*/}
-          {/*</div>*/}
-        </div>
-        {/*{start &&*/}
-        {/*    <div><UnlockIcon/> Доступ открыт {start.toLocaleString(DateTime.DATETIME_SHORT)}</div>}*/}
-        {end && status == AssignmentStatus.in_progress && <div><FireIcon/> Сдать до {end.toLocaleString(DateTime.DATETIME_SHORT)}</div>}
-        <TagList tags={problems.flatMap(w => w.tags)}/>
-      </div>
+            <div className={styles.workCompletionBlock}>
+              <WorkStatusBlock assignment={workAssignment} size={Size.big}/>
+            </div>
+            {end && status == AssignmentStatus.in_progress && <div><FireIcon/> Сдать до {end.toLocaleString(DateTime.DATETIME_SHORT)}</div>}
+            <TagList tags={problems.flatMap(w => w.tags)}/>
+          </div>
 
+          <div>
+            {(status == AssignmentStatus.in_progress || status == AssignmentStatus.all_problems_solved) &&
+                <div>
+                    <GenericTable columns={columns} pageSize={15} linkExtractor={p => `/works/${work.id}/problems/${p.id}`}
+                                  keyExtractor={p => p.id} hideHeader={false}
+                                  data={problems}/>
+                </div>}
+          </div>
+        </> : <BigLoading/>
+      }
 
-      <div>
-        {/*{status == AssignmentStatus.not_started || status == AssignmentStatus.closed && <div>Доступ к задачам закрыт</div>}*/}
-        {(status == AssignmentStatus.in_progress || status == AssignmentStatus.all_problems_solved) &&
-            <div>
-                <GenericTable columns={columns} pageSize={15} linkExtractor={p => `/works/${work.id}/problems/${p.id}`}
-                              keyExtractor={p => p.id} hideHeader={false}
-                              data={workAssignment.work.problems}/>
-            </div>}
-        {/*{problems.map(p => <TaskListItem problem={p} key={p.id}/>)}*/}
-      </div>
     </div>
   )
 }

@@ -9,6 +9,7 @@ import styles from "./SubmissionModal.module.css"
 import { ReactComponent as CompletedCircleIcon } from "../../images/icons/completed-circle-bar.svg"
 import { ReactComponent as FailedCircleIcon } from "../../images/icons/failed-circle-bar.svg"
 import { fullName } from "../../utils"
+import SmallLoading from "../../components/SmallLoading/SmallLoading"
 
 const query: Query<{ submissionId: string }, { submission: Submission }> = {
   query: `
@@ -126,7 +127,7 @@ export default ({
             </div>
           </div>
         </div>
-        : <div>LOADING</div>}
+        : <SmallLoading/> }
 
     </div>
   </>

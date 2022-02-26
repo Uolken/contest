@@ -21,7 +21,10 @@ const LoginForm = observer(() => {
   }
 
   return <div className={styles.loginColumn}>
-    <div className={styles.loginForm}>
+    <form className={styles.loginForm}  onSubmit={e => {
+      e.preventDefault()
+      login()
+    }}>
       <h1 className={styles.header}>Контест СГТУ</h1>
       <div className={styles.form}>
         <label className={styles.field}>
@@ -38,7 +41,7 @@ const LoginForm = observer(() => {
           <div className={styles.labelText}>Пароль</div>
           <input
             className={styles.input}
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={(p) => setPassword(p.target.value)}
@@ -46,10 +49,10 @@ const LoginForm = observer(() => {
         </label>
         {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
         {/*<div hidden={!errorMessage}>ошибка</div>*/}
-        <input className={styles.submitButton} type={"button"} value="Войти" onClick={() => login()}/>
+        <input className={styles.submitButton} type={"submit"} value="Войти"/>
       </div>
       <Link to="/registration">Регистрация</Link>
-    </div>
+    </form>
 
   </div>
 

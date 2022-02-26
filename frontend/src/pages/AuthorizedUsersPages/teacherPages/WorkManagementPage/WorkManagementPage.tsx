@@ -13,26 +13,33 @@ import EditableField from "../../../../components/EditableField/EditableField"
 import GroupSelectorModal from "../../../../modals/GroupSelectorModal/GroupSelectorModal"
 import EditAssignmentModal from "../../../../modals/EditAssignmentModal/EditAssignmentModal"
 import { fromInputDate, toInputDate } from "../../../../utils"
+import ContentLoader from "react-content-loader"
 
 const WorkManagementPage = observer(({ match }: RouteComponentProps<{ workId: string }>) => {
   const history = useHistory()
   useEffect(() => workManagementPage.fetchWork(match.params.workId), [])
   const work = workManagementPage.work
-  if (work === undefined) return <div>LOADING</div>
 
   return <div className="page">
     <BreadCrumbs elements={[
       {
         name: "Работы",
         url: "/teaching/works"
-      }, {
+      }, work !== undefined ? {
         name: work?.name || "Создание работы",
         url: `/teaching/works/${work?.id || "new"}`
-      }
+      }: undefined
     ]}/>
     <div className={"pageHeader"}>
-      <EditableField value={workManagementPage.workName} placeholder={"Название"}
-                     onChange={v => workManagementPage.workName = v}/>
+      {workManagementPage.workName !== undefined ?
+        <EditableField value={workManagementPage.workName} placeholder={"Название"}
+                       onChange={v => workManagementPage.workName = v}/> :
+        <ContentLoader backgroundColor={'#bbb'}
+                       foregroundColor={'#ddd'}
+                       height={30} width={150}
+        ><rect x="0" y="0" rx="4" ry="4" width="150" height="30"/>
+        </ContentLoader>
+      }
 
       <button onClick={() => {workManagementPage.sendUpdates().then((workId) => {
         if (match.params.workId == "new") history.push(`/teaching/works/${workId}`)

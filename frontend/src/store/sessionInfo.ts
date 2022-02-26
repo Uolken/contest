@@ -70,7 +70,7 @@ class SessionInfo {
     const millisecondsUntilExpiration = this.sessionExpirationDate!.diff(DateTime.now()).milliseconds
     setTimeout(() => {
       this.refreshToken()
-    }, millisecondsUntilExpiration - 10000)
+    }, millisecondsUntilExpiration - 60000)
   }
 
   private refreshUser() {

@@ -6,6 +6,7 @@ import DynamicTable from "../../../../../components/DynamicTable/DynamicTable"
 import { Column } from "../../../../../components/GenericTable/GenericTable"
 import { observer } from "mobx-react-lite"
 import TagList from "../../../../../components/TagList/TagList"
+import BigLoading from "../../../../../components/BigLoading/BigLoading"
 
 const PAGE_SIZE = 10
 
@@ -41,7 +42,7 @@ const ProblemList = observer(() => {
   useEffect(updateProblems, [currentPage, sortColumn, sortDirIsDesc])
 
   const problems = problemsManagementPage.problems
-  if (!problems) return <div>LOADING</div>
+  if (!problems) return <BigLoading/>
   const problemCount = problemsManagementPage.problemCount
   const pageCount = problemCount ? Math.ceil(problemCount / PAGE_SIZE) : undefined
   return <div>

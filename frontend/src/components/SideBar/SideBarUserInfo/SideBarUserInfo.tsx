@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './SideBarUserInfo.module.css'
 import notificationIcon from '../../../images/icons/notification.svg'
+import sessionInfo from "../../../store/sessionInfo"
 
 const SideBarUserInfo = ({
   avatar,
@@ -21,7 +22,7 @@ const SideBarUserInfo = ({
       <img src={avatar} alt="avatar" className={styles.avatar} />
       <div className={styles.fullNameAndGroup}>
         <div className={styles.fullName}>{fullName}</div>
-        <div className={styles.group}>{groupName}</div>
+        {sessionInfo.isTeacher()? <div className={styles.group}>Преподаватель</div>: <div className={styles.group}>{groupName}</div>}
       </div>
       {/*<div className={styles.notification}>*/}
       {/*  <img src={notificationIcon} alt="notification icon" className={styles.notificationIcon} />*/}

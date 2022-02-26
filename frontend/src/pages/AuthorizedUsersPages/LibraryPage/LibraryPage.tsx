@@ -9,6 +9,7 @@ import { Problem } from "../../../types"
 import TagList from "../../../components/TagList/TagList"
 import graphQLApi from "../../../api/graphQLApi"
 import { PROBLEM_COUNT, PROBLEMS } from "../../../api/queries"
+import BigLoading from "../../../components/BigLoading/BigLoading"
 
 const columns: Array<Column<Problem>> = [
   {
@@ -61,22 +62,21 @@ const LibraryPage = observer(() => {
     .then(r => setProblemCount(r.problemCount))
   }, [currentPage, sortColumn, sortDirIsDesc, tagIds])
 
-  if (!problems) return <div>LOADING</div>
-  const pageCount = problemCount ? Math.ceil(problemCount / PAGE_SIZE) : undefined
+  const pageCount = problemCount ? Math.ceil(problemCount || 0 / PAGE_SIZE) : undefined
   return <div className="page">
     <BreadCrumbs elements={[{
       name: "Библитека",
       url: "/library"
     }]}/>
     <div><h1>Библиотека задач</h1></div>
-    <DynamicTable columns={columns} linkExtractor={p => `/library/${p.id}`}
+    {problems !== undefined ? <DynamicTable columns={columns} linkExtractor={p => `/library/${p.id}`}
                   keyExtractor={p => p.id} pageCount={pageCount} pageSize={PAGE_SIZE}
                   hideHeader={false}
                   elementsToShow={problems} updatableProps={updatableProps} hook={p => {
       setCurrentPage(p.currentPage)
       setSortColumn(p.sortColumn)
       setSortDirIsDesc(p.sortDirIsDesc)
-    }}/>
+    }}/> : <BigLoading/> }
   </div>
 })
 
