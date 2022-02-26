@@ -1,11 +1,11 @@
 package com.uolken.contest.executor.service
 
 import com.uolken.contest.executor.model.BuildResult
+import com.uolken.contest.problems.model.dto.TestCaseDto
+import com.uolken.contest.solution.model.SubmissionDto
 import com.uolken.contest.solution.model.TestCaseExecutionResult
 import com.uolken.contest.solution.model.TestExecutionEvent
 import com.uolken.contest.solution.model.TestExecutionEventType.*
-import com.uolken.contest.problems.model.dto.TestCaseDto
-import com.uolken.contest.solution.model.SubmissionDto
 import org.springframework.amqp.core.AmqpTemplate
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -29,6 +29,7 @@ class CLanguageCodeExecutorServiceImpl(
         const val TEMP_DIRECTORY_PREFIX: String = "c_lang_executor_"
         const val CODE_FILE_NAME = "solution.c"
         const val COMPILED_CODE_FILE_NAME = "solution"
+        const val MEASURING_SCRIPT = "./scripts/script.sh"
     }
 
     //    private fun buildCommand(directoryName: Path) = "docker run --rm -v $directoryName:/compile c-compiler".split(" ")
@@ -107,7 +108,7 @@ class CLanguageCodeExecutorServiceImpl(
         val start = System.currentTimeMillis()
         val command =
             // "firejail --noprofile --rlimit-as=200000000 --rlimit-cpu=50 /bin/bash /home/maxim/Edu/sstu/contest/backend/scripts/script.sh ${compiledCode.absolutePathString()}"
-            "firejail --noprofile --whitelist=${compiledCode.absolutePathString()} --quiet --rlimit-as=200000000 --rlimit-cpu=50 /bin/bash /home/maxim/Edu/sstu/contest/backend/scripts/script.sh ${compiledCode.absolutePathString()}"
+            "firejail --noprofile --whitelist=${compiledCode.absolutePathString()} --quiet --rlimit-as=200000000 --rlimit-cpu=50 /bin/bash $MEASURING_SCRIPT ${compiledCode.absolutePathString()}"
         val process = ProcessBuilder(command.split(" ")).start()
 
         val bufferedWriter = process.outputStream.bufferedWriter()

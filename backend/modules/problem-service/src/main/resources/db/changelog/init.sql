@@ -4,7 +4,7 @@ CREATE TABLE work
     name      varchar(255) NOT NULL,
     type      varchar(64)  NOT NULL,
     start     timestamp,
-    "end"     timestamp,
+    end_      timestamp,
     author_id bigint,
 
     PRIMARY KEY (id)
@@ -61,11 +61,11 @@ CREATE TABLE test_case
 
 CREATE TABLE work_group_assignment
 (
-    work_id  bigint NOT NULL,
-    group_id bigint NOT NULL,
-    type      varchar(64)  NOT NULL,
-    start     timestamp,
-    "end"     timestamp,
+    work_id  bigint      NOT NULL,
+    group_id bigint      NOT NULL,
+    type     varchar(64) NOT NULL,
+    start    timestamp,
+    end_     timestamp,
 
     FOREIGN KEY (work_id) REFERENCES work (id) ON DELETE CASCADE
 )

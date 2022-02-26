@@ -32,15 +32,14 @@ class AuthenticationController(
         response: ServerHttpResponse,
         request: ServerHttpRequest
     ): Mono<SessionResponse> {
-        TODO()
-        // return userService.createStudent(
-        //     signUpRequest.email,
-        //     signUpRequest.firstName,
-        //     signUpRequest.lastName,
-        //     signUpRequest.password
-        // )
-        //     .map { it.toUserInfo() }
-        //     .flatMap { authorize(it, request, response) }
+        return userService.createStudent(
+            signUpRequest.email,
+            signUpRequest.firstName,
+            signUpRequest.lastName,
+            signUpRequest.password
+        )
+            .map { it.toUserInfo() }
+            .flatMap { authorize(it, request, response) }
     }
 
     @PostMapping("/sign-in")

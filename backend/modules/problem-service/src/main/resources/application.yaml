@@ -4,20 +4,20 @@ server:
 spring:
   r2dbc:
     name: ${PROBLEM_DB_NAME:contest}
-    password: contest
-    username: contest
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     url: r2dbc:postgresql://${PROBLEM_DB_HOST:localhost}:${PROBLEM_DB_PORT:5432}
   liquibase:
     url: jdbc:postgresql://${PROBLEM_DB_HOST:localhost}:${PROBLEM_DB_PORT:5432}/${PROBLEM_DB_NAME:contest}
     change-log: db/changelog/db.changelog-master.yaml
-    user: contest
-    password: contest
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
 
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${PROBLEM_DB_HOST:localhost}:${PROBLEM_DB_PORT:5432}/${PROBLEM_DB_NAME:contest}
-    username: contest
-    password: contest
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   application:
     name: problem-service
 

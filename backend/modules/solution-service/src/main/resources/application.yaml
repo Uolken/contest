@@ -9,8 +9,8 @@ spring:
 #      authentication-database: contest_user
       host: ${MONGO_HOST:localhost}
       port: 27017
-      username: root
-      password: example
+      username: ${MONGO_USERNAME}
+      password: ${MONGO_PASSWORD}
       database: contest_submission
   application:
     name: solution-service

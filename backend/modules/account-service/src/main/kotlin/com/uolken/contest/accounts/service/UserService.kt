@@ -7,6 +7,7 @@ import com.uolken.contest.accounts.model.dto.filter.UserSelector
 import com.uolken.contest.accounts.model.dto.request.CreateUserRequest
 import com.uolken.contest.accounts.model.dto.request.ResetPasswordRequest
 import com.uolken.contest.accounts.repository.UserRepository
+import com.uolken.contest.authentication.model.UserRole
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -28,6 +29,7 @@ interface UserService {
     fun addStudentsToGroup(groupId: Long, studentIds: List<Long>): Mono<Long>
     fun removeStudentsFromGroup(groupId: Long, excludeStudentIds: List<Long>): Mono<Long>
     fun resetPassword(email: String, resetPasswordRequest: ResetPasswordRequest): Mono<User>
+    fun createStudent(email: String, firstName: String, lastName: String, password: String): Mono<User>
 
 }
 
@@ -162,6 +164,20 @@ class UserServiceImpl(
                 createUserRequest.role,
                 createUserRequest.groupId,
                 passwordEncoder.encode(createUserRequest.email)
+            )
+        )
+    }
+
+    override fun createStudent(email: String, firstName: String, lastName: String, password: String): Mono<User> {
+        return userRepository.save(
+            User(
+                0,
+                email,
+                firstName,
+                lastName,
+                UserRole.STUDENT,
+                null,
+                passwordEncoder.encode(password)
             )
         )
     }

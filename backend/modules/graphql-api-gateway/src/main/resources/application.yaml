@@ -1,5 +1,5 @@
 server:
-  port: 8341
+  port: ${GATEWAY_PORT}
 
 spring:
   application:
