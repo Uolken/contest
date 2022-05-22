@@ -71,18 +71,14 @@ services:
     hostname: ${POSTGRES_HOST}
     image: postgres:12.3-alpine
     ports:
-      - "5436:5432"
+      - "5438:5432"
     networks:
       - contest
     volumes:
       - ./scripts/db:/docker-entrypoint-initdb.d/
-#      - ./postgres-data/:/var/lib/postgresql/data
+      - ./volumes/postgresql:/var/lib/postgresql/data
     env_file:
       - .env
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
 
   mongo:

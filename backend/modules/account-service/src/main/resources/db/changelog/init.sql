@@ -17,7 +17,7 @@ CREATE TABLE users
     email      varchar(255) NOT NULL,
     role       varchar(64)  NOT NULL,
     password   varchar(64)  NOT NULL,
-    group_id   bigint       NOT NULL,
+    group_id   bigint,
 
     FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE,
     PRIMARY KEY (id)

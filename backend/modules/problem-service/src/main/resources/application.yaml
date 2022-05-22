@@ -6,7 +6,7 @@ spring:
     name: ${PROBLEM_DB_NAME:contest}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
-    url: r2dbc:postgresql://${PROBLEM_DB_HOST:localhost}:${PROBLEM_DB_PORT:5432}
+    url: r2dbc:postgresql://${PROBLEM_DB_HOST:localhost}
   liquibase:
     url: jdbc:postgresql://${PROBLEM_DB_HOST:localhost}:${PROBLEM_DB_PORT:5432}/${PROBLEM_DB_NAME:contest}
     change-log: db/changelog/db.changelog-master.yaml
